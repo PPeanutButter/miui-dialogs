@@ -65,7 +65,7 @@ MIUIDialog(this).show {
 
 You can setup an input dialog using the `input` extension on `MIUIDialog`:
 
-<img src="" width="250px" />
+<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-input.jpg" width="250px" />
 
 ```kotlin
 MIUIDialog(this).show {
