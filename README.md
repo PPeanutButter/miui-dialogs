@@ -60,7 +60,14 @@ MIUIDialog(this).show {
   //onCancel { dialog -> } 尚未实现
 }
 ```
-## input（输入框）
+## text-input（输入框）
+
+[Text Input](#text-input)
+1. [Basics](#basics)
+2. [Hints and Prefill](#hints-and-prefill)
+3. [Input Types](#input-types)
+4. [Custom Validation](#custom-validation)
+
 ### Basics
 
 You can setup an input dialog using the `input` extension on `MIUIDialog`:
