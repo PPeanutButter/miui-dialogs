@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -95,11 +94,12 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             @StringRes prefillRes: Int? = null,
             inputType: Int = InputType.TYPE_CLASS_TEXT,
             maxLength: Int? = null,
+            multiLines: Boolean = false,
             waitForPositiveButton: Boolean = true,
             allowEmpty: Boolean = false,
             callback: InputCallback? = null
     ): MIUIDialog {
-        inputWrapper = InputWrapper(hint, hintRes, prefill, prefillRes, inputType, maxLength, waitForPositiveButton, allowEmpty, callback)
+        inputWrapper = InputWrapper(hint, hintRes, prefill, prefillRes, inputType, maxLength,multiLines, waitForPositiveButton, allowEmpty, callback)
         return this
     }
 
@@ -175,6 +175,8 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                     }
                     input.inputType = wrapper.inputType
                     input.requestFocus()
+                    if (wrapper.multiLines)
+                        input.inputType = input.inputType or InputType.TYPE_TEXT_FLAG_MULTI_LINE
                     input.background = ResourcesCompat.getDrawable(context.resources, getInputFieldDrawable(miui_light, miuiVersion),null)
                     input.addTextChangedListener(object : TextWatcher{
                         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

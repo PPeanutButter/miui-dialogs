@@ -85,4 +85,17 @@ class MainActivity3 : AppCompatActivity() {
             }
         }
     }
+
+    fun miui11InputWaitMultilines(view: View){
+        MIUIDialog(this).show {
+            title(text = "Use Google\'s Location Services?")
+            input(hint = "Type something", multiLines = true){ charSequence, _ ->
+                charSequence?.toString()?.toast(this@MainActivity3)
+            }
+            positiveButton(text = "Agree")
+            negativeButton(text = "Disagree"){
+                "You clicked negative button!".toast(this@MainActivity3)
+            }
+        }
+    }
 }

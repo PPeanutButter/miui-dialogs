@@ -50,5 +50,12 @@
             android:layout_height="wrap_content"
             android:onClick="miui11InputWait"
             android:text="input（等待按钮回调）" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="miui11InputWaitMultilines"
+            android:text="input（多行）" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
