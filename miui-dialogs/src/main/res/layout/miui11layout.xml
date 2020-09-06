@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="23dp">
+
+    <TextView
+        android:id="@+id/miui_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="31dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/miui_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/miui_title" />
+
+    <EditText
+        android:id="@+id/miui_input"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/miui_input_bg"
+        android:ems="10"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:inputType="textPersonName"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textCursorDrawable="@drawable/miui_input_cursor"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:theme="@style/miui_dialog_theme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/miui_message" />
+
+    <LinearLayout
+        android:id="@+id/miui_action_panel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:divider="@drawable/buttons_divider"
+        android:orientation="horizontal"
+        android:showDividers="middle"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/miui_input">
+
+        <Button
+            android:id="@+id/miui_button_negative"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/botton_background"
+            android:textSize="16sp"
+            android:theme="@style/miui_dialog_theme"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/miui_button_positive"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/botton_background"
+            android:textColor="#0b94f2"
+            android:textSize="16sp"
+            android:theme="@style/miui_dialog_theme"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
