@@ -24,7 +24,7 @@
 ### Basic
 Here's a very basic example of creating and showing a dialog:
 
-<img src="https://raw.githubusercontent.com/PPeanutButter/SDK/master/miui-dialogs/screen/miui-11-basic.jpg" width="250px" />
+<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-basic.jpg" width="250px" />
 
 ```kotlin
 MIUIDialog(this).show {
@@ -35,7 +35,7 @@ MIUIDialog(this).show {
 ### Action Button
 There are simple methods for adding action buttons:
 
-<img src="https://raw.githubusercontent.com/PPeanutButter/SDK/master/miui-dialogs/screen/miui-11-action-button.jpg" width="250px" />
+<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-action-button.jpg" width="250px" />
 
 ```kotlin
 MIUIDialog(this).show {
