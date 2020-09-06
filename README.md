@@ -20,7 +20,8 @@
 ### 圆角
  在您的style.xml中启用的主题加入 `<item name="md_corner_radius">15dp</item>` 即可，推荐15~20dp。
 
-## MIUI-11系列
+# MIUI-11系列
+## 核心组件
 ### Basic
 Here's a very basic example of creating and showing a dialog:
 
@@ -59,7 +60,132 @@ MIUIDialog(this).show {
   //onCancel { dialog -> } 尚未实现
 }
 ```
-### input
+## input（输入框）
+### Basics
+
+You can setup an input dialog using the `input` extension on `MIUIDialog`:
+
+<img src="" width="250px" />
+
+```kotlin
+MIUIDialog(this).show {
+  input()
+  positiveButton(R.string.submit)
+}
+```
+
+With a setup input dialog, you can retrieve the input field:
+
+```kotlin
+val dialog: MIUIDialog = // ...
+val inputField: EditText = dialog.getInputField()
+```
+
+---
+
+You can append a lambda to receive a callback when the positive action button is pressed with 
+text entered: 
+
+```kotlin
+MIUIDialog(this).show {
+  input { dialog, text ->
+      // Text submitted with the action button
+  }
+  positiveButton(R.string.submit)
+}
+```
+
+If you set `waitForPositiveButton` to false, the callback is invoked every time the text field is
+modified:
+
+```kotlin
+MIUIDialog(this).show {
+  input(waitForPositiveButton = false) { dialog, text ->
+      // Text changed
+  }
+  positiveButton(R.string.done)
+}
+```
+
+To allow the positive action button to be pressed even when the input is empty:
+
+```kotlin
+MIUIDialog(this).show {
+  input(allowEmpty = true) { dialog, text ->
+      // Text submitted with the action button, might be an empty string`
+  }
+  positiveButton(R.string.done)
+}
+```
+
+### Hints and Prefill
+
+You can set a hint to the input field, which is the gray faded text shown when the field is empty:
+
+```kotlin
+MIUIDialog(this).show {
+  input(hintRes = R.string.hint_text)
+}
+```
+
+A literal string can be used as well:
+
+```kotlin
+MIUIDialog(this).show {
+  input(hint = "Your Hint Text")
+}
+```
+
+---
+
+You can also prefill the input field:
+
+```kotlin
+MIUIDialog(this).show {
+  input(prefillRes = R.string.prefill_text)
+}
+```
+
+A literal string can be used as well:
+
+```kotlin
+MIUIDialog(this).show {
+  input(prefill = "Prefilled text")
+}
+```
+
+### Input Types
+
+You can apply input types to the input field, which modifies the keyboard type when the field is 
+focused on. This is just taken right from the Android framework, the input type gets applied 
+directly to the underlying `EditText`:
+
+```kotlin
+val type = InputType.TYPE_CLASS_TEXT or 
+  InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+  
+MIUIDialog(this).show {
+  input(inputType = type)
+}
+```
+
+### Custom Validation
+
+You can do custom validation using the input listener. This example enforces that the input
+starts with the letter 'a':
+
+```kotlin
+MIUIDialog(this).show {
+  input(waitForPositiveButton = false) { dialog, text ->
+    val inputField = dialog.getInputField()
+    val isValid = text.startsWith("a", true)
+    
+    inputField?.error = if (isValid) null else "Must start with an 'a'!"
+    dialog.setActionButtonEnabled(POSITIVE, isValid)
+  }
+  positiveButton(R.string.submit)
+}
+```
 ### countdown
 > 要求:negative的倒计时结束直接执行negativeAction（用于可能对用户不利的操作，如：获取权限之类的），positive倒计时结束时设置positive按钮可用（用于需要用户三思的危险操作）
 
