@@ -66,7 +66,8 @@ MIUIDialog(this).show {
 1. [Basics](#basics)
 2. [Hints and Prefill](#hints-and-prefill)
 3. [Input Types](#input-types)
-4. [Custom Validation](#custom-validation)
+4. [MultiLines](#input-multilines)
+5. [Custom Validation](#custom-validation)
 
 ### Basics
 
@@ -173,6 +174,23 @@ val type = InputType.TYPE_CLASS_TEXT or
   
 MIUIDialog(this).show {
   input(inputType = type)
+}
+```
+
+### input-multilines
+
+By default, input lines is 1, you can set `multiLines = true` to activate multilines input when input content maght be large
+
+```kotlin
+MIUIDialog(this).show {
+    title(text = "Use Google\'s Location Services?")
+    input(hint = "Type something", multiLines = true){ charSequence, _ ->
+        charSequence?.toString()?.toast(this@MainActivity3)
+    }
+    positiveButton(text = "Agree")
+    negativeButton(text = "Disagree"){
+        "You clicked negative button!".toast(this@MainActivity3)
+    }
 }
 ```
 
