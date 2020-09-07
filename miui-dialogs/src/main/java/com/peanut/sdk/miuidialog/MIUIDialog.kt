@@ -30,6 +30,11 @@ import com.peanut.sdk.miuidialog.content_wrapper.*
  */
 typealias DismissCallback = (MIUIDialog) -> Unit
 
+/**
+ * 创建一个MIUIDialog
+ *
+ * @param miuiVersion miui版本号, 不同的版本号的UI不一样, 代码都是一样的
+ */
 class MIUIDialog(private val context: Context, private val miuiVersion: Int = MIUI11) {
     private var dialog: MaterialDialog? = null
 

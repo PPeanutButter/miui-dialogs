@@ -22,12 +22,15 @@ class InputWrapper(
         private val preFill: CharSequence? = null,
         private val preFillRes: Int? = null,
         private val inputType: Int = InputType.TYPE_CLASS_TEXT,
-        val maxLength: Int? = null,
+        private val maxLength: Int? = null,
         private val multiLines:Boolean = false,
         val waitForPositiveButton: Boolean = true,
         val allowEmpty: Boolean = false,
         val callback: InputCallback? = null
 ){
+    /**
+     * 处理输入框的显示与交互逻辑
+     */
     fun populate(it: EditText,context: Context,miuiDialog: MIUIDialog){
         it.visible()
         if (maxLength!=null)

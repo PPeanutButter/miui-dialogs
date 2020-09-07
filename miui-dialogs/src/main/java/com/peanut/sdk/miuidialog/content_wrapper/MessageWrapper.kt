@@ -22,6 +22,9 @@ class MessageWrapper(
     var htmlClickCallback:HtmlClickCallback?=null
     var isHtml:Boolean = false
 
+    /**
+     * 处理内容消息框的显示与交互逻辑
+     */
     fun populate(it:TextView,context: Context){
         it.visible()
         it.text = if (this.isHtml) HtmlCompat.fromHtml(context.resolveText(this.text, this.res)
@@ -34,7 +37,14 @@ class MessageWrapper(
         }
     }
 
+    /**
+     * 内容消息的额外设置
+     */
     inner class MessageSettings{
+
+        /**
+         * 显示HTML并重写链接<a href=''/>的点击事件
+         */
         fun html(onLinkClick: HtmlClickCallback? = null): MessageWrapper.MessageSettings = apply {
             isHtml = true
             htmlClickCallback = onLinkClick
