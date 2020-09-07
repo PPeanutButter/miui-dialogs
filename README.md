@@ -10,9 +10,15 @@
 
 [![_latestVersion](https://api.bintray.com/packages/ppeanutbutter/maven/miui-dialogs/images/download.svg)](https://bintray.com/ppeanutbutter/maven/miui-dialogs/_latestVersion)
 
-```implementation 'com.peanut.sdk:miui-dialogs:_latestVersion'```
+```implementation 'com.peanut.sdk:miui-dialogs:上面的版本号'```
 
-依赖于material-dialogs的core/bottomsheet-3.3.0两个包会自动加入,但是不确定会不会和你额外加入的两个包版本冲突
+[![Core](https://api.bintray.com/packages/drummer-aidan/maven/material-dialogs%3Acore/images/download.svg)](https://bintray.com/drummer-aidan/maven/material-dialogs%3Acore/_latestVersion)
+
+```implementation 'com.afollestad.material-dialogs:core:上面的版本号'```
+
+[ ![Bottom Sheets](https://api.bintray.com/packages/drummer-aidan/maven/material-dialogs%3Abottomsheets/images/download.svg) ](https://bintray.com/drummer-aidan/maven/material-dialogs%3Abottomsheets/_latestVersion)
+
+```implementation 'com.afollestad.material-dialogs:bottomsheets:上面的版本号'```
 
 ---
 
