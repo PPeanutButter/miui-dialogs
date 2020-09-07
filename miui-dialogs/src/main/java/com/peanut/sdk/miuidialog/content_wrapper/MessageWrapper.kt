@@ -1,7 +1,19 @@
 package com.peanut.sdk.miuidialog.content_wrapper
 
-typealias MessageSetting = MessageWrapper.() -> Unit
+import android.content.Context
+import android.text.method.LinkMovementMethod
+import android.widget.TextView
+import androidx.core.text.HtmlCompat
+import com.peanut.sdk.miuidialog.AddInFunction.resolveText
+import com.peanut.sdk.miuidialog.AddInFunction.visible
+import com.peanut.sdk.miuidialog.internal.LinkTransformationMethod
+
+typealias MessageSetting = MessageWrapper.MessageSettings.() -> Unit
 typealias HtmlClickCallback = (link: String) -> Unit
+
+/**
+ * 保存内容入参
+ */
 class MessageWrapper(
         val res: Int? = null,
         val text: CharSequence? = null,
@@ -10,9 +22,23 @@ class MessageWrapper(
     var htmlClickCallback:HtmlClickCallback?=null
     var isHtml:Boolean = false
 
-    fun html(onLinkClick: HtmlClickCallback? = null): MessageWrapper {
-        isHtml = true
-        htmlClickCallback = onLinkClick
-        return this
+    fun populate(it:TextView,context: Context){
+        it.visible()
+        it.text = if (this.isHtml) HtmlCompat.fromHtml(context.resolveText(this.text, this.res)
+                ?: "resolveText error", HtmlCompat.FROM_HTML_MODE_LEGACY) else context.resolveText(this.text, this.res)
+        if (this.messageSetting != null) {
+            this.htmlClickCallback?.let { htmlClickCallback ->
+                it.transformationMethod = LinkTransformationMethod(htmlClickCallback)
+            }
+            it.movementMethod = LinkMovementMethod.getInstance()
+        }
+    }
+
+    inner class MessageSettings{
+        fun html(onLinkClick: HtmlClickCallback? = null): MessageWrapper.MessageSettings = apply {
+            isHtml = true
+            htmlClickCallback = onLinkClick
+        }
     }
 }
+

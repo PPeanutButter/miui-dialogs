@@ -7,6 +7,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 
+/**
+ * 一些封装的方法
+ */
 object AddInFunction {
     fun View.visible() {
         this.visibility = View.VISIBLE

@@ -1,19 +1,14 @@
 package com.peanut.sdk.miuidialog
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
-import android.text.Editable
 import android.text.InputType
-import android.text.TextWatcher
-import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.StringRes
-import androidx.core.text.HtmlCompat
 import com.afollestad.materialdialogs.LayoutMode
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
@@ -28,12 +23,13 @@ import com.peanut.sdk.miuidialog.AddInFunction.resolveText
 import com.peanut.sdk.miuidialog.AddInFunction.visible
 import com.peanut.sdk.miuidialog.MIUIVersion.MIUI11
 import com.peanut.sdk.miuidialog.content_wrapper.*
-import com.peanut.sdk.miuidialog.internal.LinkTransformationMethod
 
 /**
  * MIUI11计划：
- *              list、input与按钮倒计时
+ *              list、按钮倒计时
  */
+typealias DismissCallback = (MIUIDialog) -> Unit
+
 class MIUIDialog(private val context: Context, private val miuiVersion: Int = MIUI11) {
     private var dialog: MaterialDialog? = null
 
@@ -45,9 +41,8 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     private var positiveWrapper: PositiveWrapper? = null
     private var negativeWrapper: NegativeWrapper? = null
 
-    private var miui_view: View? = null
-
-    private var miui_light: Boolean = true
+    private var miuiView: View? = null
+    private var miuiLight: Boolean = true
 
     /**
      * Shows a title, or header, at the top of the dialog.
@@ -69,7 +64,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     fun message(@StringRes res: Int? = null, text: CharSequence? = null, messageSetting: MessageSetting? = null): MIUIDialog = apply {
         MDUtil.assertOneSet("title", text, res)
         messageWrapper = MessageWrapper(res, text, messageSetting).apply {
-            messageSetting?.invoke(this)
+            messageSetting?.invoke(this.MessageSettings())
         }
     }
 
@@ -96,11 +91,16 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         this.negativeWrapper = NegativeWrapper(res, text, click)
     }
 
+    /** Applies multiple properties to the dialog and opens it. */
     fun show(func: MIUIDialog.() -> Unit): MIUIDialog = apply {
         func()
         this.show()
     }
 
+    /**
+     * Adds a listener that's invoked when the dialog is [MIUIDialog.onDismiss]'d. If this is called
+     * multiple times, it overwriting , rather than appends additional callbacks.(这里和他不一样，也没必要弄几个callbacks)
+     */
     fun onDismiss(callback: DismissCallback): MIUIDialog = apply {
         this.dismissAction = callback
     }
@@ -138,21 +138,22 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         inputWrapper = InputWrapper(hint, hintRes, prefill, prefillRes, inputType, maxLength, multiLines, waitForPositiveButton, allowEmpty, callback)
     }
 
+    /** Enables or disables an action button. */
     fun setActionButtonEnabled(
             which: WhichButton,
             enabled: Boolean
     ) {
         when(which){
             WhichButton.POSITIVE -> {
-                miui_view?.findViewById<Button>(R.id.miui_button_positive)?.let {
+                miuiView?.findViewById<Button>(R.id.miui_button_positive)?.let {
                     it.isEnabled = enabled
                     it.setTextColor(if (enabled) Color.parseColor("#0b94f2") else Color.GRAY)
                 }
             }
             WhichButton.NEGATIVE -> {
-                miui_view?.findViewById<Button>(R.id.miui_button_negative)?.let {
+                miuiView?.findViewById<Button>(R.id.miui_button_negative)?.let {
                     it.isEnabled = enabled
-                    it.setTextColor(if (enabled) ThemedColor.titleColor(miui_light) else Color.GRAY)
+                    it.setTextColor(if (enabled) ThemedColor.mainColor(miuiLight) else Color.GRAY)
                 }
             }
             else -> {
@@ -161,13 +162,19 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         }
     }
 
+    /**
+     * Cancel the dialog.
+     */
     fun cancel() = dialog?.cancel()
 
-    fun getInputField() = miui_view?.findViewById<EditText>(R.id.miui_input)
+    /**
+     * Gets the input EditText for the dialog.
+     */
+    fun getInputField() = miuiView?.findViewById<EditText>(R.id.miui_input)
 
     private fun calculateVisionLight() {
         //处理主题色
-        miui_light = resolveColor(attr = R.attr.md_background_color, context = context) {
+        miuiLight = resolveColor(attr = R.attr.md_background_color, context = context) {
             resolveColor(attr = R.attr.colorBackgroundFloating, context = context)
         }.let {
             val r: Float = (it shr 16 and 0xff) / 255.0f
@@ -179,15 +186,14 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         }
     }
 
-    @SuppressLint("InflateParams")
-    fun show() {
+    private fun show() {
         //处理不同的MIUI版本
-        miui_view = when (miuiVersion) {
-            MIUI11 -> context.resolveLayout(miui_light, dayLayoutRes = R.layout.miui11layout, nightLayoutRes = R.layout.miui11layout_night)
+        miuiView = when (miuiVersion) {
+            MIUI11 -> context.resolveLayout(miuiLight, dayLayoutRes = R.layout.miui11layout, nightLayoutRes = R.layout.miui11layout_night)
             else -> null
         }
         calculateVisionLight()
-        miui_view?.let {
+        miuiView?.let {
             populateTitle(it)
             populateMessage(it)
             populateInput(it)
@@ -195,7 +201,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             populateNegativeButton(it)
         }
         dialog = MaterialDialog(context, BottomSheet(layoutMode = LayoutMode.WRAP_CONTENT)).show {
-            customView(view = miui_view, noVerticalPadding = true)
+            customView(view = miuiView, noVerticalPadding = true)
             onDismiss {
                 dismissAction?.invoke(this@MIUIDialog)
             }
@@ -217,53 +223,14 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     private fun populateMessage(view: View) {
         view.findViewById<TextView>(R.id.miui_message).let {
             it.gone()
-            messageWrapper?.let { wrapper ->
-                it.visible()
-                it.text = if (wrapper.isHtml) HtmlCompat.fromHtml(context.resolveText(wrapper.text, wrapper.res)
-                        ?: "resolveText error", HtmlCompat.FROM_HTML_MODE_LEGACY) else context.resolveText(wrapper.text, wrapper.res)
-                if (wrapper.messageSetting != null) {
-                    wrapper.htmlClickCallback?.let { htmlClickCallback ->
-                        it.transformationMethod = LinkTransformationMethod(htmlClickCallback)
-                    }
-                    it.movementMethod = LinkMovementMethod.getInstance()
-                }
-            }
+            messageWrapper?.populate(it,context)
         }
     }
 
     private fun populateInput(view: View) {
         view.findViewById<EditText>(R.id.miui_input).let {
             it.gone()
-            inputWrapper?.let { wrapper ->
-                it.visible()
-                it.hint = context.resolveText(wrapper.hint, wrapper.hintRes)
-                context.resolveText(wrapper.preFill, wrapper.preFillRes).let { prefill ->
-                    it.setText(prefill)
-                    if (wrapper.allowEmpty.not())
-                        this@MIUIDialog.setActionButtonEnabled(WhichButton.POSITIVE, prefill?.isNotEmpty() == true || prefill?.isNotBlank() == true)
-                }
-                it.inputType = wrapper.inputType
-                it.requestFocus()
-                if (wrapper.multiLines)
-                    it.inputType = it.inputType or InputType.TYPE_TEXT_FLAG_MULTI_LINE
-                it.addTextChangedListener(object : TextWatcher {
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-                    }
-
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                        if (!wrapper.waitForPositiveButton)
-                            wrapper.callback?.invoke(s, this@MIUIDialog)
-                        if (wrapper.allowEmpty.not())
-                            this@MIUIDialog.setActionButtonEnabled(WhichButton.POSITIVE, s?.isNotEmpty() == true || s?.isNotBlank() == true)
-                    }
-
-                    override fun afterTextChanged(s: Editable?) {
-
-                    }
-
-                })
-            }
+            inputWrapper?.populate(it,context,this)
         }
     }
 
@@ -298,5 +265,3 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         }
     }
 }
-
-typealias DismissCallback = (MIUIDialog) -> Unit
