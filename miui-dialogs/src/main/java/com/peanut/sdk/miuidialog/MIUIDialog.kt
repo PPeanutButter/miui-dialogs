@@ -49,11 +49,23 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
 
     private var miui_light: Boolean = true
 
+    /**
+     * Shows a title, or header, at the top of the dialog.
+     *
+     * @param res The string resource to display as the title.
+     * @param text The literal string to display as the title.
+     */
     fun title(@StringRes res: Int? = null, text: String? = null): MIUIDialog = apply {
         MDUtil.assertOneSet("title", text, res)
         this.titleWrapper = TitleWrapper(res, text)
     }
 
+    /**
+     * Shows a message, below the title, and above the action buttons (and checkbox prompt).
+     *
+     * @param res The string resource to display as the message.
+     * @param text The literal string to display as the message.
+     */
     fun message(@StringRes res: Int? = null, text: CharSequence? = null, messageSetting: MessageSetting? = null): MIUIDialog = apply {
         MDUtil.assertOneSet("title", text, res)
         messageWrapper = MessageWrapper(res, text, messageSetting).apply {
@@ -61,10 +73,25 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         }
     }
 
+    /**
+     * Shows a positive action button, in the far right at the bottom of the dialog.
+     *
+     * @param res The string resource to display on the title.
+     * @param text The literal string to display on the button.
+     * @param click A listener to invoke when the button is pressed.
+     */
     fun positiveButton(@StringRes res: Int? = null, text: CharSequence? = null, click: PositiveCallback? = null): MIUIDialog = apply {
         this.positiveWrapper = PositiveWrapper(res, text, click)
     }
 
+    /**
+     * Shows a negative action button, to the left of the positive action button (or at the far
+     * right if there is no positive action button).
+     *
+     * @param res The string resource to display on the title.
+     * @param text The literal string to display on the button.
+     * @param click A listener to invoke when the button is pressed.
+     */
     fun negativeButton(@StringRes res: Int? = null, text: CharSequence? = null, click: NegativeCallback? = null): MIUIDialog = apply {
         this.negativeWrapper = NegativeWrapper(res, text, click)
     }
@@ -78,6 +105,24 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         this.dismissAction = callback
     }
 
+    /**
+     * Shows an input field as the content of the dialog. Can be used with a message and checkbox
+     * prompt, but cannot be used with a list.
+     *
+     * @param hint The literal string to display as the input field hint.
+     * @param hintRes The string resource to display as the input field hint.
+     * @param prefill The literal string to pre-fill the input field with.
+     * @param prefillRes The string resource to pre-fill the input field with.
+     * @param inputType The input type for the input field, e.g. phone or email. Defaults to plain text.
+     * @param maxLength The max length for the input field, shows a counter and disables the positive
+     *    action button if the input length surpasses it.(not available yet!)
+     * @param waitForPositiveButton When true, the [callback] isn't invoked until the positive button
+     *    is clicked. Otherwise, it's invoked every time the input text changes. Defaults to true if
+     *    the dialog has buttons.
+     * @param allowEmpty Defaults to false. When false, the positive action button is disabled unless
+     *    the input field is not empty.
+     * @param callback A listener to invoke for input text notifications.
+     */
     fun input(
             hint: String? = null,
             @StringRes hintRes: Int? = null,

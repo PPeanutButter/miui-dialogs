@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.callbacks.onDismiss
+import com.afollestad.materialdialogs.input.input
 import com.peanut.sdk.miuidialog.AddInFunction.toast
 import com.peanut.sdk.miuidialog.MIUIDialog
 
@@ -49,7 +50,7 @@ class MainActivity3 : AppCompatActivity() {
                 html() {  }
             }
             positiveButton()
-//            input()
+            input()
             title()
         }
     }
