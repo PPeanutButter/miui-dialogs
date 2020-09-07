@@ -1,4 +1,7 @@
 # MIUI-like Dialog
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/17167bea01b548a6bc19d401697a7a69)](https://app.codacy.com/manual/PPeanutButter/miui-dialogs?utm_source=github.com&utm_medium=referral&utm_content=PPeanutButter/miui-dialogs&utm_campaign=Badge_Grade_Dashboard)
+
 > based on [material-dialogs](https://github.com/afollestad/material-dialogs)
 
 入坑这个系列不是为了在MIUI系统上使用特定的(MIUI-dialog)弹窗,而是为了保证App弹窗适配App的UI(毕竟非Material Design的App用系统或者material-dialogs的弹窗总是感觉不搭)
