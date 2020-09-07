@@ -38,6 +38,20 @@
             android:text="Callbacks（带回调）" />
 
         <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="miui11Html"
+            android:text="Html（显示HTML）" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="miui11HtmlCallback"
+            android:text="Html（重写HTML链接跳转）" />
+
+        <Button
             android:id="@+id/button9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

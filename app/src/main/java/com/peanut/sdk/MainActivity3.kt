@@ -21,11 +21,34 @@ class MainActivity3 : AppCompatActivity() {
         }
     }
 
+    fun miui11Html(view:View){
+        MIUIDialog(this).show {
+            title(text = "Use Google\'s Location Services?")
+            message(text = "Let Google help apps determine location. <a href='baidu.com'>This means sending anonymous location data to Google</a>, even when no apps are running."){
+                html()
+            }
+        }
+    }
+
+    fun miui11HtmlCallback(view:View){
+        MIUIDialog(this).show {
+            title(text = "Use Google\'s Location Services?")
+            message(text = "Let Google help apps determine location. <a href='baidu.com'>This means sending anonymous location data to Google</a>, even when no apps are running."){
+                html{
+                    it.toast(this@MainActivity3)
+                }
+            }
+        }
+    }
+
     fun test(){
         MaterialDialog(this).show {
             onDismiss {
             }
-            message()
+            message(){
+                html() {  }
+            }
+            positiveButton()
 //            input()
             title()
         }
