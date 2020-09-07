@@ -8,7 +8,7 @@
 
 ## installation
 
-[ ![_latestVersion](https://api.bintray.com/packages/ppeanutbutter/maven/miui-dialogs/images/download.svg) ](https://bintray.com/ppeanutbutter/maven/miui-dialogs/_latestVersion)
+[![_latestVersion](https://api.bintray.com/packages/ppeanutbutter/maven/miui-dialogs/images/download.svg)](https://bintray.com/ppeanutbutter/maven/miui-dialogs/_latestVersion)
 
 ```implementation 'com.peanut.sdk:miui-dialogs:_latestVersion'```
 
@@ -75,11 +75,11 @@ MIUIDialog(this).show {
 ## text-input（输入框）
 
 [Text Input](#text-input)
- 1. [Basics](#basics)
- 2. [Hints and Prefill](#hints-and-prefill)
- 3. [Input Types](#input-types)
- 4. [MultiLines](#input-multilines)
- 5. [Custom Validation](#custom-validation)
+ 1.[Basics](#basics)
+ 2.[Hints and Prefill](#hints-and-prefill)
+ 3.[Input Types](#input-types)
+ 4.[MultiLines](#input-multilines)
+ 5.[Custom Validation](#custom-validation)
 
 ### Basics
 
