@@ -8,7 +8,7 @@
 
 ## installation
 
-[ ![_latestVersion](https://api.bintray.com/packages/ppeanutbutter/maven/miui-dialogs/images/download.svg) ](https://bintray.com/ppeanutbutter/maven/miui-dialogs/_latestVersion)  [![Codacy Badge](https://app.codacy.com/project/badge/Grade/4c2addfdcf7b40dcbe1426b31276a83e)](https://www.codacy.com/manual/PPeanutButter/miui-dialogs?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=PPeanutButter/miui-dialogs&amp;utm_campaign=Badge_Grade)
+[ ![_latestVersion](https://api.bintray.com/packages/ppeanutbutter/maven/miui-dialogs/images/download.svg) ](https://bintray.com/ppeanutbutter/maven/miui-dialogs/_latestVersion)
 
 ```implementation 'com.peanut.sdk:miui-dialogs:_latestVersion'```
 
