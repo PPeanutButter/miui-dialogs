@@ -1,6 +1,6 @@
 # MIUI-like Dialog
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/17167bea01b548a6bc19d401697a7a69)](https://app.codacy.com/manual/PPeanutButter/miui-dialogs?utm_source=github.com&utm_medium=referral&utm_content=PPeanutButter/miui-dialogs&utm_campaign=Badge_Grade_Dashboard)  ![Bintray](https://img.shields.io/bintray/dt/ppeanutbutter/maven/miui-dialogs?color=1bcc1b)  ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ppeanutbutter/miui-dialogs?color=1bcc1b)  ![GitHub top language](https://img.shields.io/github/languages/top/ppeanutbutter/miui-dialogs?color=1bcc1b&label=Kotlin)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/17167bea01b548a6bc19d401697a7a69)](https://app.codacy.com/manual/PPeanutButter/miui-dialogs?utm_source=github.com&utm_medium=referral&utm_content=PPeanutButter/miui-dialogs&utm_campaign=Badge_Grade_Dashboard)  [![](https://img.shields.io/badge/镜像站-Fastgit-1bcc1b)](https://hub.fastgit.org/PPeanutButter/miui-dialogs)  ![Bintray](https://img.shields.io/bintray/dt/ppeanutbutter/maven/miui-dialogs?color=1bcc1b)  ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ppeanutbutter/miui-dialogs?color=1bcc1b)  ![GitHub top language](https://img.shields.io/github/languages/top/ppeanutbutter/miui-dialogs?color=1bcc1b&label=Kotlin)
 
 > based on [material-dialogs](https://github.com/afollestad/material-dialogs)
 
