@@ -37,7 +37,7 @@
 
 Here's a very basic example of creating and showing a dialog:
 
-<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-basic.jpg" width="250px" />
+<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-basic.png" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {
@@ -50,7 +50,7 @@ MIUIDialog(this).show {
 
 There are simple methods for adding action buttons:
 
-<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-action-button.jpg" width="250px" />
+<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-action-button.png" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {
@@ -91,7 +91,7 @@ MIUIDialog(this).show {
 
 You can setup an input dialog using the `input` extension on `MIUIDialog`:
 
-<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-input.jpg" width="250px" />
+<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-input.png" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {
@@ -103,7 +103,7 @@ MIUIDialog(this).show {
 With a setup input dialog, you can retrieve the input field:
 
 ```kotlin
-val dialog: MIUIDialog = // ...
+val dialog: MIUIDialog = MIUIDialog(this).show{}
 val inputField: EditText = dialog.getInputField()
 ```
 

@@ -67,7 +67,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * @param text The literal string to display as the message.
      */
     fun message(@StringRes res: Int? = null, text: CharSequence? = null, messageSetting: MessageSetting? = null): MIUIDialog = apply {
-        MDUtil.assertOneSet("title", text, res)
+        MDUtil.assertOneSet("message", text, res)
         messageWrapper = MessageWrapper(res, text, messageSetting).apply {
             messageSetting?.invoke(this.MessageSettings())
         }
@@ -242,6 +242,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     private fun populatePositiveButton(view: View) {
         view.findViewById<Button>(R.id.miui_button_positive).let {
             it.gone()
+            view.findViewById<LinearLayout>(R.id.miui_action_panel).gone()
             positiveWrapper?.let { wrapper ->
                 it.visible()
                 it.text = context.resolveText(res = wrapper.res, text = wrapper.text)
@@ -258,6 +259,8 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
 
     private fun populateNegativeButton(view: View) {
         view.findViewById<Button>(R.id.miui_button_negative).let {
+            it.gone()
+            view.findViewById<LinearLayout>(R.id.miui_action_panel).gone()
             negativeWrapper?.let { wrapper ->
                 it.visible()
                 it.text = context.resolveText(res = wrapper.res, text = wrapper.text)

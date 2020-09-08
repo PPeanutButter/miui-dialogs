@@ -13,5 +13,16 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+
+    }
+
+    @Test
+    fun connect_device(){
+        Runtime.getRuntime().exec("adb connect 192.168.0.103:5555")
+    }
+
+    @Test
+    fun disconnect_device(){
+        Runtime.getRuntime().exec("adb disconnect")
     }
 }
