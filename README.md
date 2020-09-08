@@ -80,12 +80,12 @@ MIUIDialog(this).show {
 
 ## text-input（输入框）
 
-[Text Input](#text-input)
- 1.[Basics](#basics)
- 2.[Hints and Prefill](#hints-and-prefill)
- 3.[Input Types](#input-types)
- 4.[MultiLines](#input-multilines)
- 5.[Custom Validation](#custom-validation)
+1. [Text Input](#text-input)
+    1. [Basics](#basics)
+    2. [Hints and Prefill](#hints-and-prefill)
+    3. [Input Types](#input-types)
+    4. [MultiLines](#input-multilines)
+    5. [Custom Validation](#custom-validation)
 
 ### Basics
 
