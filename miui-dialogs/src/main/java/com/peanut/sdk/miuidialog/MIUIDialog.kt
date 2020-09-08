@@ -2,6 +2,7 @@ package com.peanut.sdk.miuidialog
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Handler
 import android.text.InputType
 import android.view.View
 import android.widget.Button
@@ -80,8 +81,8 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * @param text The literal string to display on the button.
      * @param click A listener to invoke when the button is pressed.
      */
-    fun positiveButton(@StringRes res: Int? = null, text: CharSequence? = null, click: PositiveCallback? = null): MIUIDialog = apply {
-        this.positiveWrapper = PositiveWrapper(res, text, click)
+    fun positiveButton(@StringRes res: Int? = null, text: CharSequence? = null,countdown:Int? = null, click: PositiveCallback? = null): MIUIDialog = apply {
+        this.positiveWrapper = PositiveWrapper(res, text, countdown, click)
     }
 
     /**
@@ -92,8 +93,8 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * @param text The literal string to display on the button.
      * @param click A listener to invoke when the button is pressed.
      */
-    fun negativeButton(@StringRes res: Int? = null, text: CharSequence? = null, click: NegativeCallback? = null): MIUIDialog = apply {
-        this.negativeWrapper = NegativeWrapper(res, text, click)
+    fun negativeButton(@StringRes res: Int? = null, text: CharSequence? = null, countdown:Int? = null, click: NegativeCallback? = null): MIUIDialog = apply {
+        this.negativeWrapper = NegativeWrapper(res, text, countdown, click)
     }
 
     /** Applies multiple properties to the dialog and opens it. */
@@ -245,7 +246,26 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             view.findViewById<LinearLayout>(R.id.miui_action_panel).gone()
             positiveWrapper?.let { wrapper ->
                 it.visible()
-                it.text = context.resolveText(res = wrapper.res, text = wrapper.text)
+                val userText = context.resolveText(res = wrapper.res, text = wrapper.text)
+                it.text = userText
+                wrapper.countdown?.let { second->
+                    object :Thread(){
+                        override fun run() {
+                            var i = -1
+                            while (second-++i>0){
+                                Handler(context.mainLooper).post {
+                                    this@MIUIDialog.setActionButtonEnabled(WhichButton.POSITIVE,false)
+                                    it.text = String.format("%s(%d)",userText,second-i)
+                                }
+                                sleep(1000)
+                            }
+                            Handler(context.mainLooper).post {
+                                it.text = userText
+                                this@MIUIDialog.setActionButtonEnabled(WhichButton.POSITIVE,true)
+                            }
+                        }
+                    }.start()
+                }
                 it.setOnClickListener {
                     wrapper.click?.invoke(this)
                     if (inputWrapper?.waitForPositiveButton == true)
@@ -263,7 +283,27 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             view.findViewById<LinearLayout>(R.id.miui_action_panel).gone()
             negativeWrapper?.let { wrapper ->
                 it.visible()
-                it.text = context.resolveText(res = wrapper.res, text = wrapper.text)
+                val userText = context.resolveText(res = wrapper.res, text = wrapper.text)
+                it.text = userText
+                wrapper.countdown?.let { second->
+                    object :Thread(){
+                        override fun run() {
+                            var i = -1
+                            while (second-++i>0){
+                                Handler(context.mainLooper).post {
+                                    this@MIUIDialog.setActionButtonEnabled(WhichButton.NEGATIVE,false)
+                                    it.text = String.format("%s(%d)",userText,second-i)
+                                }
+                                sleep(1000)
+                            }
+                            Handler(context.mainLooper).post {
+                                it.text = userText
+                                this@MIUIDialog.setActionButtonEnabled(WhichButton.NEGATIVE,true)
+                                it.performClick()
+                            }
+                        }
+                    }.start()
+                }
                 it.setOnClickListener {
                     wrapper.click?.invoke(this)
                     cancel()

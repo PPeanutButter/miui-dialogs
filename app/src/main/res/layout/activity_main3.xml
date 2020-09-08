@@ -31,6 +31,20 @@
             android:text="Action button（带按钮）" />
 
         <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="miui11PositiveCountdown"
+            android:text="Action button (确认倒计时)" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="miui11NegativeCountdown"
+            android:text="Action button (取消倒计时)" />
+
+        <Button
             android:id="@+id/button8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -74,6 +74,32 @@ class MainActivity3 : AppCompatActivity() {
         }
     }
 
+    fun miui11PositiveCountdown(view:View){
+        MIUIDialog(this).show {
+            title(text = "Use Google\'s Location Services?")
+            message(text = "Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.")
+            positiveButton(text = "Agree",countdown = 5){
+                "you clicked positive button!".toast(this@MainActivity3)
+            }
+            negativeButton(text = "Disagree"){
+                "you clicked negative button!".toast(this@MainActivity3)
+            }
+        }
+    }
+
+    fun miui11NegativeCountdown(view:View){
+        MIUIDialog(this).show {
+            title(text = "Use Google\'s Location Services?")
+            message(text = "Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.")
+            positiveButton(text = "Agree"){
+                "you clicked positive button!".toast(this@MainActivity3)
+            }
+            negativeButton(text = "Disagree",countdown = 10){
+                "you clicked negative button!".toast(this@MainActivity3)
+            }
+        }
+    }
+
     fun miui11Callbacks(view:View){
         MIUIDialog(this).show {
             title(text = "Use Google\'s Location Services?")

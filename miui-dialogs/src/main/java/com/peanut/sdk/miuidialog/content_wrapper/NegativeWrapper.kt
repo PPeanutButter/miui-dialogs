@@ -10,5 +10,6 @@ typealias NegativeCallback = (MIUIDialog) -> Unit
 class NegativeWrapper(
         val res: Int? = null,
         val text: CharSequence? = null,
+        val countdown:Int? = null,
         val click: NegativeCallback? = null
 )

@@ -9,5 +9,6 @@ typealias PositiveCallback = (MIUIDialog) -> Unit
 class PositiveWrapper(
         val res: Int? = null,
         val text: CharSequence? = null,
+        val countdown:Int? = null,
         val click: PositiveCallback? = null
 )
