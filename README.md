@@ -12,24 +12,24 @@
 
 ```implementation 'com.peanut.sdk:miui-dialogs:dialog-version'```
 
-[![Core](https://api.bintray.com/packages/drummer-aidan/maven/material-dialogs%3Acore/images/download.svg)](https://bintray.com/drummer-aidan/maven/material-dialogs%3Acore/_latestVersion)
+![Bintray](https://img.shields.io/bintray/v/drummer-aidan/maven/material-dialogs:core?color=1bcc1b&label=core_version)
 
-```implementation 'com.afollestad.material-dialogs:core:上面的版本号'```
+```implementation 'com.afollestad.material-dialogs:core:core_version'```
 
-[ ![Bottom Sheets](https://api.bintray.com/packages/drummer-aidan/maven/material-dialogs%3Abottomsheets/images/download.svg) ](https://bintray.com/drummer-aidan/maven/material-dialogs%3Abottomsheets/_latestVersion)
+![Bintray](https://img.shields.io/bintray/v/drummer-aidan/maven/material-dialogs:bottomsheets?color=1bcc1b&label=bottomsheets_version)
 
-```implementation 'com.afollestad.material-dialogs:bottomsheets:上面的版本号'```
+```implementation 'com.afollestad.material-dialogs:bottomsheets:bottomsheets_version'```
 
 ---
 
-## 一些基础设置
-> 都是 [material-dialogs](https://github.com/afollestad/material-dialogs) 的设置
+## Basic Dialog Settings
+> all settings belongs to material-dialogs, [see all](https://github.com/afollestad/material-dialogs)
 
-### 夜间主题配置
-在您的style.xml中启用的主题加入 `<item name="md_background_color">#222224</item>` （或者其他深色）即可，弹窗会自动判断文字颜色。
+### night-mode
+Adding code `<item name="md_background_color">#222224</item>`
 
-### 圆角配置
- 在您的style.xml中启用的主题加入 `<item name="md_corner_radius">25dp</item>` 即可，推荐20~30dp。
+### corner
+Adding code `<item name="md_corner_radius">25dp</item>` to your `style.xml` (recommend 20~30dp)。
 
 ---
 
@@ -71,10 +71,10 @@ There are a few lifecycle callbacks you can hook into:
 
 ```kotlin
 MIUIDialog(this).show {
-  //onPreShow { dialog -> } 尚未实现
-  //onShow { dialog -> } 尚未实现
+  //onPreShow { dialog -> } not implemented yet!
+  //onShow { dialog -> } not implemented yet!
   onDismiss { dialog -> }
-  //onCancel { dialog -> } 尚未实现
+  //onCancel { dialog -> } not implemented yet!
 }
 ```
 
@@ -116,7 +116,7 @@ MIUIDialog(this).show {
 }
 ```
 
-## text-input（输入框）
+## text-input
 
 1. [Text Input](#text-input)
     1. [Basics](#basics)
@@ -268,4 +268,4 @@ MIUIDialog(this).show {
 }
 ```
 
-### 等待开发
+### to do...
