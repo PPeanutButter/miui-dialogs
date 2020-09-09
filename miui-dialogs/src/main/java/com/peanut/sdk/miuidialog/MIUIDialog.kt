@@ -291,14 +291,12 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                             var i = -1
                             while (second-++i>0){
                                 Handler(context.mainLooper).post {
-                                    this@MIUIDialog.setActionButtonEnabled(WhichButton.NEGATIVE,false)
                                     it.text = String.format("%s(%d)",userText,second-i)
                                 }
                                 sleep(1000)
                             }
                             Handler(context.mainLooper).post {
                                 it.text = userText
-                                this@MIUIDialog.setActionButtonEnabled(WhichButton.NEGATIVE,true)
                                 it.performClick()
                             }
                         }

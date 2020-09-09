@@ -78,6 +78,42 @@ MIUIDialog(this).show {
 }
 ```
 
+### CountDown
+
+You can disable Positive Button in first few seconds(let user wait):
+
+<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-negative-countdown.png" width="400px" />
+
+```kotlin
+MIUIDialog(this).show {
+    title(text = "Use Google\'s Location Services?")
+    message(text = "Let Google help apps determine location. This means sending")
+    positiveButton(text = "Agree",countdown = 5){
+        "you clicked positive button!".toast(this@MainActivity3)
+    }
+    negativeButton(text = "Disagree"){
+        "you clicked negative button!".toast(this@MainActivity3)
+    }
+}
+```
+
+---
+
+You can also set run Negative Callback automatically when wait time-out:
+
+```kotlin
+MIUIDialog(this).show {
+    title(text = "Use Google\'s Location Services?")
+    message(text = "Let Google help apps determine location. This means sending a")
+    positiveButton(text = "Agree"){
+        "you clicked positive button!".toast(this@MainActivity3)
+    }
+    negativeButton(text = "Disagree",countdown = 10){
+        "you clicked negative button!".toast(this@MainActivity3)
+    }
+}
+```
+
 ## text-input（输入框）
 
 1. [Text Input](#text-input)
