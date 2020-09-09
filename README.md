@@ -26,7 +26,7 @@
 > all settings belongs to material-dialogs, [see all](https://github.com/afollestad/material-dialogs)
 
 ### night-mode
-Adding code `<item name="md_background_color">#222224</item>`
+Adding code `<item name="md_background_color">#222224</item>` to your `style.xml`。
 
 ### corner
 Adding code `<item name="md_corner_radius">25dp</item>` to your `style.xml` (recommend 20~30dp)。
