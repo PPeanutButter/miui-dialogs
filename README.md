@@ -82,7 +82,7 @@ MIUIDialog(this).show {
 
 You can disable Positive Button in first few seconds(let user wait):
 
-<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-negative-countdown.png" width="400px" />
+<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-positive-countdown.png" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {
@@ -100,6 +100,8 @@ MIUIDialog(this).show {
 ---
 
 You can also set run Negative Callback automatically when wait time-out:
+
+<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-negative-countdown.png" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {
