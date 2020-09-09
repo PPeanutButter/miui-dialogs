@@ -268,8 +268,4 @@ MIUIDialog(this).show {
 }
 ```
 
-### countdown
-
-> 要求:negative的倒计时结束直接执行negativeAction（用于可能对用户不利的操作，如：获取权限之类的），positive倒计时结束时设置positive按钮可用（用于需要用户三思的危险操作）
-
 ### 等待开发
