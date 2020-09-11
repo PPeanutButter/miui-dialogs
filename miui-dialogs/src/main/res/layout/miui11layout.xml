@@ -10,10 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
-        android:text="Title"
+        android:text="@string/design_title"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,10 +26,9 @@
         android:layout_marginTop="28dp"
         android:layout_marginEnd="35dp"
         android:layout_marginRight="35dp"
-        android:text="message here"
+        android:text="@string/design_message"
         android:textColor="#4a4a4a"
         android:textSize="16sp"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/miui_title" />
@@ -46,6 +44,7 @@
         android:layout_marginRight="30dp"
         android:background="@drawable/miui_input_bg"
         android:ems="10"
+        android:hint="@string/design_hint"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:inputType="textPersonName|textImeMultiLine"
@@ -58,10 +57,10 @@
         android:textCursorDrawable="@drawable/miui_input_cursor"
         android:textSize="16sp"
         android:theme="@style/miui_dialog_theme"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miui_message" />
+        app:layout_constraintTop_toBottomOf="@+id/miui_message"
+        android:autofillHints="" />
 
     <LinearLayout
         android:id="@+id/miui_action_panel"
@@ -75,7 +74,6 @@
         android:divider="@drawable/buttons_divider"
         android:orientation="horizontal"
         android:showDividers="middle"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/miui_input">
@@ -87,11 +85,10 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/botton_background"
-            android:text="cancel"
+            android:text="@string/design_negative_button"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:theme="@style/miui_dialog_theme"
-            android:visibility="visible" />
+            android:theme="@style/miui_dialog_theme" />
 
         <Button
             android:id="@+id/miui_button_positive"
@@ -100,11 +97,10 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:background="@drawable/botton_background"
-            android:text="accept"
+            android:text="@string/design_positive_button"
             android:textColor="#0b94f2"
             android:textSize="16sp"
-            android:theme="@style/miui_dialog_theme"
-            android:visibility="visible" />
+            android:theme="@style/miui_dialog_theme" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,9 +68,9 @@ class MainActivity3 : AppCompatActivity() {
             positiveButton(text = "Agree"){
                 "you clicked positive button!".toast(this@MainActivity3)
             }
-            negativeButton(text = "Disagree"){
-                "you clicked negative button!".toast(this@MainActivity3)
-            }
+//            negativeButton(text = "Disagree"){
+//                "you clicked negative button!".toast(this@MainActivity3)
+//            }
         }
     }
 

@@ -193,18 +193,19 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     private fun show() {
+        calculateVisionLight()
         //处理不同的MIUI版本
         miuiView = when (miuiVersion) {
             MIUI11 -> context.resolveLayout(miuiLight, dayLayoutRes = R.layout.miui11layout, nightLayoutRes = R.layout.miui11layout_night)
             else -> null
         }
-        calculateVisionLight()
         miuiView?.let {
             populateTitle(it)
             populateMessage(it)
             populateInput(it)
             populatePositiveButton(it)
             populateNegativeButton(it)
+            populateActionButton(it)
         }
         dialog = MaterialDialog(context, BottomSheet(layoutMode = LayoutMode.WRAP_CONTENT)).show {
             customView(view = miuiView, noVerticalPadding = true)
@@ -212,6 +213,12 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                 dismissAction?.invoke(this@MIUIDialog)
             }
         }
+    }
+
+    private fun populateActionButton(it: View) {
+        if (positiveWrapper == null && negativeWrapper == null)
+            it.findViewById<LinearLayout>(R.id.miui_action_panel).gone()
+        else it.findViewById<LinearLayout>(R.id.miui_action_panel).visible()
     }
 
     private fun populateTitle(view: View) {
@@ -243,7 +250,6 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     private fun populatePositiveButton(view: View) {
         view.findViewById<Button>(R.id.miui_button_positive).let {
             it.gone()
-            view.findViewById<LinearLayout>(R.id.miui_action_panel).gone()
             positiveWrapper?.let { wrapper ->
                 it.visible()
                 val userText = context.resolveText(res = wrapper.res, text = wrapper.text)
@@ -272,7 +278,6 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                         inputWrapper?.callback?.invoke(this.getInputField()?.text, this)
                     cancel()
                 }
-                view.findViewById<LinearLayout>(R.id.miui_action_panel).visible()
             }
         }
     }
@@ -280,7 +285,6 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     private fun populateNegativeButton(view: View) {
         view.findViewById<Button>(R.id.miui_button_negative).let {
             it.gone()
-            view.findViewById<LinearLayout>(R.id.miui_action_panel).gone()
             negativeWrapper?.let { wrapper ->
                 it.visible()
                 val userText = context.resolveText(res = wrapper.res, text = wrapper.text)
@@ -306,7 +310,6 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                     wrapper.click?.invoke(this)
                     cancel()
                 }
-                view.findViewById<LinearLayout>(R.id.miui_action_panel).visible()
             }
         }
     }
