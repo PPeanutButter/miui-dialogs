@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:paddingBottom="23dp">
 
     <TextView
@@ -62,6 +63,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/miui_message" />
+
+    <TextView
+        android:id="@+id/miui_input_error_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/design_input_err"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="10sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/miui_input"
+        app:layout_constraintTop_toBottomOf="@+id/miui_input"
+        tools:ignore="SmallSp" />
 
     <LinearLayout
         android:id="@+id/miui_action_panel"

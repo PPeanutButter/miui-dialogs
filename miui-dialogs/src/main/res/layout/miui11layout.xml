@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="23dp">
@@ -42,11 +43,12 @@
         android:layout_marginTop="38dp"
         android:layout_marginEnd="30dp"
         android:layout_marginRight="30dp"
+        android:autofillHints=""
         android:background="@drawable/miui_input_bg"
         android:ems="10"
-        android:hint="@string/design_hint"
         android:focusable="true"
         android:focusableInTouchMode="true"
+        android:hint="@string/design_hint"
         android:inputType="textPersonName|textImeMultiLine"
         android:minHeight="55dp"
         android:paddingLeft="16dp"
@@ -59,8 +61,22 @@
         android:theme="@style/miui_dialog_theme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miui_message"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/miui_message" />
+
+    <TextView
+        android:id="@+id/miui_input_error_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:text="@string/design_input_err"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="10sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/miui_input"
+        app:layout_constraintTop_toBottomOf="@+id/miui_input"
+        tools:ignore="SmallSp" />
 
     <LinearLayout
         android:id="@+id/miui_action_panel"

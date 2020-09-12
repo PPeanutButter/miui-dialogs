@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.LayoutRes
+import androidx.core.content.res.ResourcesCompat
 
 /**
  * 一些封装的方法
@@ -27,6 +28,8 @@ object AddInFunction {
 
     private fun Int.createView(context: Context) =
             LayoutInflater.from(context).inflate(this, null)
+
+    fun Int.createDrawable(context: Context) = ResourcesCompat.getDrawable(context.resources,this,null)
 
     fun Context.resolveLayout(day: Boolean = true, @LayoutRes dayLayoutRes: Int, @LayoutRes nightLayoutRes: Int):View =
             if (day) dayLayoutRes.createView(this) else nightLayoutRes.createView(this)

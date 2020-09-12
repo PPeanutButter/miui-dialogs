@@ -5,4 +5,5 @@
     <string name="design_negative_button">cancel</string>
     <string name="design_positive_button">accept</string>
     <string name="design_hint">Typing something !</string>
+    <string name="design_input_err">TextView</string>
 </resources>

@@ -6,7 +6,18 @@
 
 入坑这个系列不是为了在MIUI系统上使用特定的(MIUI-dialog)弹窗,而是为了保证App弹窗适配App的UI(毕竟非Material Design的App用系统或者material-dialogs的弹窗总是感觉不搭)
 
-## installation
+## Table of Contents
+
+1. [Gradle Dependency](#Gradle-Dependency)
+2. [Basics](#Basics)
+3. [Customizing the Message](#Customizing-the-Message)
+4. [Action Button](#Action-Button)
+5. [CountDown](#CountDown)
+6. [Adding an Icon](#Adding-an-Icon)
+7. [Callbacks](#Callbacks)
+8. [Dismissing](#Dismissing)
+    
+## Gradle Dependency
 
 ![Bintray](https://img.shields.io/bintray/v/ppeanutbutter/maven/miui-dialogs?color=1bcc1b&label=dialog-version)
 
@@ -33,11 +44,22 @@
 
 ---
 
-### Basic
+## Basics
 
 Here's a very basic example of creating and showing a dialog:
 
 <img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-basic.png" width="400px" />
+
+```kotlin
+MIUIDialog(this).show {
+    title(R.string.your_title)
+    message(R.string.your_message)
+}
+```
+
+`this` should be a `Context` which is attached to a window, like an `Activity`.
+
+If you wanted to pass in literal strings instead of string resources:
 
 ```kotlin
 MIUIDialog(this).show {
@@ -46,7 +68,34 @@ MIUIDialog(this).show {
 }
 ```
 
-### Action Button
+Note that you can setup a dialog without immediately showing it, as well:
+
+```kotlin
+val dialog = MIUIDialog(this)
+    .title(R.string.your_title)
+    .message(R.string.your_message)
+dialog.show()
+```
+
+## Customizing the Message
+
+The `message` function lets you trail it with a lambda, which exposes certain built-in modifiers along with allowing you to act on the `TextView` directly.
+
+```kotlin
+MIUIDialog(this).show {
+  message(R.string.your_message) {
+      html() // format, color, etc. with tags in string
+      html { link ->  // same as above, but... 
+        // Invokes a callback when a URL is clicked instead of auto opening it in a browser
+      }
+      lineSpacing(1.4f) // modifies line spacing, default is 1.0f,not support yet!
+      
+      // You can directly act on the message TextView as well
+      val textView = messageTextView//not support yet!
+  }
+}
+```
+## Action Button
 
 There are simple methods for adding action buttons:
 
@@ -54,8 +103,26 @@ There are simple methods for adding action buttons:
 
 ```kotlin
 MIUIDialog(this).show {
-    title(text = "Use Google\'s Location Services?")
-    message(text = "Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.")
+  positiveButton(R.string.agree)
+  negativeButton(R.string.disagree)
+}
+```
+
+You can use literal strings here as well:
+
+```kotlin
+MIUIDialog(this).show {
+  positiveButton(text = "Agree")
+  negativeButton(text = "Disagree")
+}
+```
+
+---
+
+Listening for clicks on the buttons is as simple as adding a lambda to the end:
+
+```kotlin
+MIUIDialog(this).show {
     positiveButton(text = "Agree"){
         //do
     }
@@ -65,20 +132,11 @@ MIUIDialog(this).show {
 }
 ```
 
-### Callbacks
+If action buttons together are too long to fit in the dialog's width, they will be automatically stacked:
 
-There are a few lifecycle callbacks you can hook into:
+not tested yet!
 
-```kotlin
-MIUIDialog(this).show {
-  //onPreShow { dialog -> } 尚未实现
-  //onShow { dialog -> } 尚未实现
-  onDismiss { dialog -> }
-  //onCancel { dialog -> } 尚未实现
-}
-```
-
-### CountDown
+## CountDown
 
 You can disable Positive Button in first few seconds(let user wait):
 
@@ -116,16 +174,67 @@ MIUIDialog(this).show {
 }
 ```
 
-## text-input（输入框）
+## Adding an Icon
+
+You can display an icon to the `Top` of the title:
+
+not support yet!
+
+## Callbacks
+
+There are a few lifecycle callbacks you can hook into:
+
+```kotlin
+MIUIDialog(this).show {
+  //onPreShow { dialog -> } not support yet!
+  //onShow { dialog -> } not support yet!
+  onDismiss { dialog -> }
+  //onCancel { dialog -> } not support yet!
+}
+```
+
+## Dismissing
+
+Dismissing a dialog closes it:
+
+not support yet!
+
+---
+
+You can prevent a dialog from being canceled, meaning it has to be explictly dismissed with an action button or a call to the method above.
+
+not support yet!
+
+## Lists
+
+not support yet!
+
+## Checkbox Prompts
+
+not support yet!
+
+## Custom Views
+
+not support yet!
+
+## Miscellaneous
+
+not support yet!
+
+## Theming
+
+not support yet!
+
+## text-input
 
 1. [Text Input](#text-input)
-    1. [Basics](#basics)
+    1. [Basics](#input-basics)
     2. [Hints and Prefill](#hints-and-prefill)
     3. [Input Types](#input-types)
     4. [MultiLines](#input-multilines)
     5. [Custom Validation](#custom-validation)
 
-### Basics
+### input Basics
 
 You can setup an input dialog using the `input` extension on `MIUIDialog`:
 
@@ -268,4 +377,3 @@ MIUIDialog(this).show {
 }
 ```
 
-### 等待开发

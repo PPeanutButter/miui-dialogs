@@ -1,10 +1,11 @@
 package com.peanut.sdk
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.actions.setActionButtonEnabled
+import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.afollestad.materialdialogs.input.getInputField
 import com.afollestad.materialdialogs.input.input
@@ -145,13 +146,24 @@ class MainActivity3 : AppCompatActivity() {
     fun miui11InputWaitMultilines(view: View){
         MIUIDialog(this).show {
             title(text = "Use Google\'s Location Services?")
-            input(hint = "Type something", multiLines = true){ charSequence, _ ->
+            input(hint = "Type something", multiLines = true) { charSequence, _ ->
                 charSequence?.toString()?.toast(this@MainActivity3)
             }
             positiveButton(text = "Agree")
-            negativeButton(text = "Disagree"){
+            negativeButton(text = "Disagree") {
                 "You clicked negative button!".toast(this@MainActivity3)
             }
+        }
+    }
+
+    fun custom_validation(view: View) {
+        MIUIDialog(this).show {
+            input(waitForPositiveButton = false) { charSequence, dialog ->
+                val isValid = charSequence?.startsWith("a", true)
+                dialog.setInputError(text = if (isValid == true || charSequence.isNullOrEmpty()) null else "Must start with an 'a'!")
+                dialog.setActionButtonEnabled(WhichButton.POSITIVE, isValid==true)
+            }
+            positiveButton(text = "Accept")
         }
     }
 }

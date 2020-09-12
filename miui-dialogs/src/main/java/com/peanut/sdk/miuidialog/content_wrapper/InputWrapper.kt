@@ -11,7 +11,7 @@ import com.peanut.sdk.miuidialog.AddInFunction.resolveText
 import com.peanut.sdk.miuidialog.AddInFunction.visible
 import com.peanut.sdk.miuidialog.MIUIDialog
 
-typealias InputCallback = (CharSequence?, MIUIDialog) -> Unit
+typealias InputCallback = (charSequence:CharSequence?, dialog:MIUIDialog) -> Unit
 
 /**
  * 保存输入框的入参
@@ -51,10 +51,10 @@ class InputWrapper(
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (!this@InputWrapper.waitForPositiveButton)
-                    this@InputWrapper.callback?.invoke(s, miuiDialog)
                 if (this@InputWrapper.allowEmpty.not())
                     miuiDialog.setActionButtonEnabled(WhichButton.POSITIVE, s?.isNotEmpty() == true || s?.isNotBlank() == true)
+                if (!this@InputWrapper.waitForPositiveButton)
+                    this@InputWrapper.callback?.invoke(s, miuiDialog)
             }
 
             override fun afterTextChanged(s: Editable?) {

@@ -18,6 +18,7 @@ import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.utils.MDUtil
 import com.afollestad.materialdialogs.utils.MDUtil.resolveColor
+import com.peanut.sdk.miuidialog.AddInFunction.createDrawable
 import com.peanut.sdk.miuidialog.AddInFunction.gone
 import com.peanut.sdk.miuidialog.AddInFunction.resolveLayout
 import com.peanut.sdk.miuidialog.AddInFunction.resolveText
@@ -27,7 +28,7 @@ import com.peanut.sdk.miuidialog.content_wrapper.*
 
 /**
  * MIUI11计划：
- *              list、按钮倒计时
+ *              list
  */
 typealias DismissCallback = (MIUIDialog) -> Unit
 
@@ -178,6 +179,28 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      */
     fun getInputField() = miuiView?.findViewById<EditText>(R.id.miui_input)
 
+    /**
+     * 设置输入框的错误状态下的提示
+     * 还需要改变输入框的背景
+     */
+    fun setInputError(text: String?) {
+        miuiView?.let {
+            val a = it.findViewById<TextView>(R.id.miui_input_error_msg)
+            a.gone()
+            if (text.isNullOrEmpty())
+                getInputField()?.background =
+                        if (miuiLight) R.drawable.miui_input_bg.createDrawable(context)
+                        else R.drawable.miui_input_bg_dark.createDrawable(context)
+            else {
+                getInputField()?.background =
+                        if (miuiLight) R.drawable.miui_input_bg_err.createDrawable(context)
+                        else R.drawable.miui_input_bg_err_dark.createDrawable(context)
+                a.visible()
+                a.text = text
+            }
+        }
+    }
+
     private fun calculateVisionLight() {
         //处理主题色
         miuiLight = resolveColor(attr = R.attr.md_background_color, context = context) {
@@ -295,7 +318,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                             var i = -1
                             while (second-++i>0){
                                 Handler(context.mainLooper).post {
-                                    it.text = String.format("%s(%d)",userText,second-i)
+                                    it.text = String.format("%s (%d)", userText, second - i)
                                 }
                                 sleep(1000)
                             }
