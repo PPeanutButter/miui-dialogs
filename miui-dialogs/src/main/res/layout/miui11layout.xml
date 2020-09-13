@@ -104,6 +104,7 @@
             android:text="@string/design_negative_button"
             android:textColor="@android:color/black"
             android:textSize="16sp"
+            android:textAllCaps="false"
             android:theme="@style/miui_dialog_theme" />
 
         <Button
@@ -116,6 +117,7 @@
             android:text="@string/design_positive_button"
             android:textColor="#0b94f2"
             android:textSize="16sp"
+            android:textAllCaps="false"
             android:theme="@style/miui_dialog_theme" />
     </LinearLayout>
 

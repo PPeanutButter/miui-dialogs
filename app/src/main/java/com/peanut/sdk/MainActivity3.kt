@@ -164,6 +164,7 @@ class MainActivity3 : AppCompatActivity() {
 
     fun custom_validation(view: View) {
         MIUIDialog(this).show {
+            title(text = "输入以'a'开头的单词")
             input(waitForPositiveButton = false) { charSequence, dialog ->
                 val isValid = charSequence?.startsWith("a", true)
                 dialog.setInputError(text = if (isValid == true || charSequence.isNullOrEmpty()) null else "Must start with an 'a'!")

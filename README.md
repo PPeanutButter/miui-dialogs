@@ -14,8 +14,14 @@
 4. [Action Button](#Action-Button)
 5. [CountDown](#CountDown)
 6. [Adding an Icon](#Adding-an-Icon)
-7. [Callbacks](#Callbacks)
-8. [Dismissing](#Dismissing)
+7. [Text Input](#text-input)
+    1. [Basics](#input-basics)
+    2. [Hints and Prefill](#hints-and-prefill)
+    3. [Input Types](#input-types)
+    4. [MultiLines](#input-multilines)
+    5. [Custom Validation](#custom-validation)
+8. [Callbacks](#Callbacks)
+9. [Dismissing](#Dismissing)
     
 ## Gradle Dependency
 
@@ -33,22 +39,11 @@
 
 ---
 
-## 一些基础设置
-> 都是 [material-dialogs](https://github.com/afollestad/material-dialogs) 的设置
-
-### 夜间主题配置
-在您的style.xml中启用的主题加入 `<item name="md_background_color">#222224</item>` （或者其他深色）即可，弹窗会自动判断文字颜色。
-
-### 圆角配置
- 在您的style.xml中启用的主题加入 `<item name="md_corner_radius">25dp</item>` 即可，推荐20~30dp。
-
----
-
 ## Basics
 
 Here's a very basic example of creating and showing a dialog:
 
-<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-basic.png" width="400px" />
+<img src="screen/miui-11-basic.png" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {
@@ -225,15 +220,6 @@ not support yet!
 
 not support yet!
 
-## text-input
-
-1. [Text Input](#text-input)
-    1. [Basics](#input-basics)
-    2. [Hints and Prefill](#hints-and-prefill)
-    3. [Input Types](#input-types)
-    4. [MultiLines](#input-multilines)
-    5. [Custom Validation](#custom-validation)
-
 ### input Basics
 
 You can setup an input dialog using the `input` extension on `MIUIDialog`:
@@ -362,6 +348,8 @@ MIUIDialog(this).show {
 ### Custom Validation
 
 You can do custom validation using the input listener. This example enforces that the input starts with the letter 'a':
+
+<img src="screen/miui11-custom-validation.png" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {

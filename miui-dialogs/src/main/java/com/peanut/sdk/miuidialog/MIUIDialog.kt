@@ -246,13 +246,11 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     private fun populateTitle(view: View) {
-        if (titleWrapper != null) {
-            view.findViewById<TextView>(R.id.miui_title).let {
-                it.gone()
-                titleWrapper?.let { wrapper ->
-                    it.text = context.resolveText(res = wrapper.res, text = wrapper.text)
-                    it.visible()
-                }
+        view.findViewById<TextView>(R.id.miui_title).let {
+            it.gone()
+            titleWrapper?.let { wrapper ->
+                it.text = context.resolveText(res = wrapper.res, text = wrapper.text)
+                it.visible()
             }
         }
     }
