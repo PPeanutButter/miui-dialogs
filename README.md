@@ -318,10 +318,10 @@ There are a few lifecycle callbacks you can hook into:
 
 ```kotlin
 MIUIDialog(this).show {
-  //onPreShow { dialog -> } not support yet!
-  //onShow { dialog -> } not support yet!
+  onPreShow { dialog -> }
+  onShow { dialog -> }
   onDismiss { dialog -> }
-  //onCancel { dialog -> } not support yet!
+  onCancel { dialog -> }
 }
 ```
 
