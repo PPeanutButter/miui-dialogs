@@ -14,7 +14,10 @@ import com.afollestad.materialdialogs.LayoutMode
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
+import com.afollestad.materialdialogs.callbacks.onCancel
 import com.afollestad.materialdialogs.callbacks.onDismiss
+import com.afollestad.materialdialogs.callbacks.onPreShow
+import com.afollestad.materialdialogs.callbacks.onShow
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.utils.MDUtil
 import com.afollestad.materialdialogs.utils.MDUtil.resolveColor
@@ -26,7 +29,7 @@ import com.peanut.sdk.miuidialog.AddInFunction.visible
 import com.peanut.sdk.miuidialog.MIUIVersion.MIUI11
 import com.peanut.sdk.miuidialog.content_wrapper.*
 
-typealias DismissCallback = (MIUIDialog) -> Unit
+typealias MIUICallback = (MIUIDialog) -> Unit
 
 /**
  * 创建一个MIUIDialog
@@ -35,8 +38,6 @@ typealias DismissCallback = (MIUIDialog) -> Unit
  */
 class MIUIDialog(private val context: Context, private val miuiVersion: Int = MIUI11) {
     private var dialog: MaterialDialog? = null
-
-    private var dismissAction: DismissCallback? = null
 
     private var titleWrapper: TitleWrapper? = null
     private var inputWrapper: InputWrapper? = null
@@ -101,11 +102,45 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     /**
-     * Adds a listener that's invoked when the dialog is [MIUIDialog.onDismiss]'d. If this is called
-     * multiple times, it overwriting , rather than appends additional callbacks.(这里和他不一样，也没必要弄几个callbacks)
+     * Adds a listener that's invoked when the dialog is [MaterialDialog.dismiss]'d. If this is called
+     * multiple times, it appends additional callbacks, rather than overwriting.
      */
-    fun onDismiss(callback: DismissCallback): MIUIDialog = apply {
-        this.dismissAction = callback
+    fun onDismiss(MIUICallback: MIUICallback): MIUIDialog = apply {
+        dialog?.onDismiss {
+            MIUICallback.invoke(this)
+        }
+    }
+
+    /**
+     * Adds a listener that's invoked when the dialog is [MaterialDialog.show]'n. If this is called
+     * multiple times, it appends additional callbacks, rather than overwriting.
+     *
+     * If the dialog is already showing, the callback be will be invoked immediately.
+     */
+    fun onShow(MIUICallback: MIUICallback): MIUIDialog = apply {
+        dialog?.onShow {
+            MIUICallback.invoke(this)
+        }
+    }
+
+    /**
+     * Adds a listener that's invoked right before the dialog is [MaterialDialog.show]'n. If this is called
+     * multiple times, it appends additional callbacks, rather than overwriting.
+     */
+    fun onPreShow(MIUICallback: MIUICallback): MIUIDialog = apply {
+        dialog?.onPreShow {
+            MIUICallback.invoke(this)
+        }
+    }
+
+    /**
+     * Adds a listener that's invoked when the dialog is canceled. If this is called
+     * multiple times, it overwriting.
+     */
+    fun onCancel(MIUICallback: MIUICallback): MIUIDialog = apply {
+        dialog?.onCancel {
+            MIUICallback.invoke(this)
+        }
     }
 
     /**
@@ -178,8 +213,12 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     /**
      * Gets the input EditText for the dialog.
      */
-    fun getInputField() = miuiView?.findViewById<EditText>(R.id.miui_input)
+    var inputField = miuiView?.findViewById<EditText>(R.id.miui_input)
 
+    /**
+     * Gets the message TextView for the dialog.
+     */
+    var messageTextView = miuiView?.findViewById<TextView>(R.id.miui_message)
     /**
      * 设置输入框的错误状态下的提示
      * 还需要改变输入框的背景
@@ -189,11 +228,11 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             val a = it.findViewById<TextView>(R.id.miui_input_error_msg)
             a.gone()
             if (text.isNullOrEmpty())
-                getInputField()?.background =
+                inputField?.background =
                         if (miuiLight) R.drawable.miui_input_bg.createDrawable(context)
                         else R.drawable.miui_input_bg_dark.createDrawable(context)
             else {
-                getInputField()?.background =
+                inputField?.background =
                         if (miuiLight) R.drawable.miui_input_bg_err.createDrawable(context)
                         else R.drawable.miui_input_bg_err_dark.createDrawable(context)
                 a.visible()
@@ -233,9 +272,6 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         }
         dialog = MaterialDialog(context, BottomSheet(layoutMode = LayoutMode.WRAP_CONTENT)).show {
             customView(view = miuiView, noVerticalPadding = true)
-            onDismiss {
-                dismissAction?.invoke(this@MIUIDialog)
-            }
         }
     }
 
@@ -297,7 +333,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                 it.setOnClickListener {
                     wrapper.click?.invoke(this)
                     if (inputWrapper?.waitForPositiveButton == true)
-                        inputWrapper?.callback?.invoke(this.getInputField()?.text, this)
+                        inputWrapper?.callback?.invoke(this.inputField?.text, this)
                     cancel()
                 }
             }

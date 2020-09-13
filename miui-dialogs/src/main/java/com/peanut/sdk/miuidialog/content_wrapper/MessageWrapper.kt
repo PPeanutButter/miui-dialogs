@@ -21,6 +21,7 @@ class MessageWrapper(
 ){
     var htmlClickCallback:HtmlClickCallback?=null
     var isHtml:Boolean = false
+    var lineSpacingValue:Float = 1.0f
 
     /**
      * 处理内容消息框的显示与交互逻辑
@@ -34,6 +35,7 @@ class MessageWrapper(
                 it.transformationMethod = LinkTransformationMethod(htmlClickCallback)
             }
             it.movementMethod = LinkMovementMethod.getInstance()
+            it.setLineSpacing(0f, lineSpacingValue)
         }
     }
 
@@ -48,6 +50,13 @@ class MessageWrapper(
         fun html(onLinkClick: HtmlClickCallback? = null): MessageWrapper.MessageSettings = apply {
             isHtml = true
             htmlClickCallback = onLinkClick
+        }
+
+        /**
+         * 设置行间距
+         */
+        fun lineSpacing(multiplier: Float): MessageWrapper.MessageSettings = apply {
+            lineSpacingValue = multiplier
         }
     }
 }

@@ -75,10 +75,10 @@ MIUIDialog(this).show {
       html { link ->  // same as above, but... 
         // Invokes a callback when a URL is clicked instead of auto opening it in a browser
       }
-      lineSpacing(1.4f) // modifies line spacing, default is 1.0f,not support yet!
+      lineSpacing(1.4f) // modifies line spacing, default is 1.0f
       
       // You can directly act on the message TextView as well
-      val textView = messageTextView//not support yet!
+      val textView = messageTextView
   }
 }
 ```
@@ -186,7 +186,7 @@ With a setup input dialog, you can retrieve the input field:
 
 ```kotlin
 val dialog: MIUIDialog = MIUIDialog(this).show{}
-val inputField: EditText = dialog.getInputField()
+val inputField: EditText = dialog.inputField
 ```
 
 ---
@@ -329,7 +329,11 @@ MIUIDialog(this).show {
 
 Dismissing a dialog closes it:
 
-not support yet!
+```kotlin
+MIUIDialog(this).show {
+    dismiss()
+}
+```
 
 ---
 

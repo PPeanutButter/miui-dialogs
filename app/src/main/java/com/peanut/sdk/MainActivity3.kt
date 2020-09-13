@@ -51,7 +51,7 @@ class MainActivity3 : AppCompatActivity() {
             }
             message(){
                 html() {  }
-
+//                lineSpacing()
             }
 //            setActionButtonEnabled()
             positiveButton()
@@ -64,7 +64,25 @@ class MainActivity3 : AppCompatActivity() {
         MIUIDialog(this).show {
             cancel()
             dismiss()
-            getInputField()
+            inputField
+            messageTextView
+            onCancel {  }
+            onDismiss {  }
+            onShow {  }
+            onPreShow {  }
+        }
+    }
+
+    fun Customizing_the_Message(view: View){
+        MIUIDialog(this).show {
+            title(text = "Use Google\'s Location Services?")
+            message(text = "Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running."){
+                html()
+                lineSpacing(1.0f)
+            }
+            positiveButton(text = "Agree"){
+                "you clicked positive button!".toast(this@MainActivity3)
+            }
         }
     }
 
