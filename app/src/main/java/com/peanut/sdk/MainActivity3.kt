@@ -60,6 +60,12 @@ class MainActivity3 : AppCompatActivity() {
             cancel()
             getInputField()
         }
+
+        MIUIDialog(this).show {
+            cancel()
+            dismiss()
+            getInputField()
+        }
     }
 
     fun miui11ActionButton(view:View){

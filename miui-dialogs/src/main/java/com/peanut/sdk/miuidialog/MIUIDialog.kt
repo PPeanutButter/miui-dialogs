@@ -26,10 +26,6 @@ import com.peanut.sdk.miuidialog.AddInFunction.visible
 import com.peanut.sdk.miuidialog.MIUIVersion.MIUI11
 import com.peanut.sdk.miuidialog.content_wrapper.*
 
-/**
- * MIUI11计划：
- *              list
- */
 typealias DismissCallback = (MIUIDialog) -> Unit
 
 /**
@@ -173,6 +169,11 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * Cancel the dialog.
      */
     fun cancel() = dialog?.cancel()
+
+    /**
+     * dismiss the dialog.
+     */
+    fun dismiss() = dialog?.dismiss()
 
     /**
      * Gets the input EditText for the dialog.
@@ -324,7 +325,8 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                             }
                             Handler(context.mainLooper).post {
                                 it.text = userText
-                                it.performClick()
+                                if(dialog?.isShowing == true)
+                                    it.performClick()
                             }
                         }
                     }.start()

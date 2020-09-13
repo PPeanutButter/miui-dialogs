@@ -361,15 +361,13 @@ MIUIDialog(this).show {
 
 ### Custom Validation
 
-You can do custom validation using the input listener. This example enforces that the input
-starts with the letter 'a':
+You can do custom validation using the input listener. This example enforces that the input starts with the letter 'a':
 
 ```kotlin
 MIUIDialog(this).show {
   input(waitForPositiveButton = false) { dialog, text ->
     val inputField = dialog.getInputField()
     val isValid = text.startsWith("a", true)
-    
     inputField?.error = if (isValid) null else "Must start with an 'a'!"
     dialog.setActionButtonEnabled(POSITIVE, isValid)
   }
