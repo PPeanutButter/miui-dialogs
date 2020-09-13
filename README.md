@@ -76,6 +76,8 @@ dialog.show()
 
 The `message` function lets you trail it with a lambda, which exposes certain built-in modifiers along with allowing you to act on the `TextView` directly.
 
+<img src="screen/miui11-Customizing-the-Message.png" width="400px" />
+
 ```kotlin
 MIUIDialog(this).show {
   message(R.string.your_message) {
@@ -94,7 +96,7 @@ MIUIDialog(this).show {
 
 There are simple methods for adding action buttons:
 
-<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-action-button.png" width="400px" />
+<img src="screen/miui-11-action-button.png" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {
@@ -135,7 +137,7 @@ not tested yet!
 
 You can disable Positive Button in first few seconds(let user wait):
 
-<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-positive-countdown.png" width="400px" />
+<img src="screen/miui-11-positive-countdown.png" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {
@@ -154,7 +156,7 @@ MIUIDialog(this).show {
 
 You can also set run Negative Callback automatically when wait time-out:
 
-<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-negative-countdown.png" width="400px" />
+<img src="screen/miui-11-negative-countdown.png" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {
@@ -175,56 +177,13 @@ You can display an icon to the `Top` of the title:
 
 not support yet!
 
-## Callbacks
-
-There are a few lifecycle callbacks you can hook into:
-
-```kotlin
-MIUIDialog(this).show {
-  //onPreShow { dialog -> } not support yet!
-  //onShow { dialog -> } not support yet!
-  onDismiss { dialog -> }
-  //onCancel { dialog -> } not support yet!
-}
-```
-
-## Dismissing
-
-Dismissing a dialog closes it:
-
-not support yet!
-
----
-
-You can prevent a dialog from being canceled, meaning it has to be explictly dismissed with an action button or a call to the method above.
-
-not support yet!
-
-## Lists
-
-not support yet!
-
-## Checkbox Prompts
-
-not support yet!
-
-## Custom Views
-
-not support yet!
-
-## Miscellaneous
-
-not support yet!
-
-## Theming
-
-not support yet!
+## text input
 
 ### input Basics
 
 You can setup an input dialog using the `input` extension on `MIUIDialog`:
 
-<img src="https://raw.githubusercontent.com/PPeanutButter/miui-dialogs/master/screen/miui-11-input.png" width="400px" />
+<img src="screen/miui-11-input.png" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {
@@ -362,4 +321,51 @@ MIUIDialog(this).show {
   positiveButton(R.string.submit)
 }
 ```
+
+## Callbacks
+
+There are a few lifecycle callbacks you can hook into:
+
+```kotlin
+MIUIDialog(this).show {
+  //onPreShow { dialog -> } not support yet!
+  //onShow { dialog -> } not support yet!
+  onDismiss { dialog -> }
+  //onCancel { dialog -> } not support yet!
+}
+```
+
+## Dismissing
+
+Dismissing a dialog closes it:
+
+not support yet!
+
+---
+
+You can prevent a dialog from being canceled, meaning it has to be explictly dismissed with an action button or a call to the method above.
+
+not support yet!
+
+## Lists
+
+not support yet!
+
+## Checkbox Prompts
+
+not support yet!
+
+## Custom Views
+
+not support yet!
+
+## Miscellaneous
+
+not support yet!
+
+## Theming
+
+not support yet!
+
+
 
