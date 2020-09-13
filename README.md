@@ -29,16 +29,6 @@
 
 ```implementation 'com.peanut.sdk:miui-dialogs:dialog-version'```
 
-[![Core](https://api.bintray.com/packages/drummer-aidan/maven/material-dialogs%3Acore/images/download.svg)](https://bintray.com/drummer-aidan/maven/material-dialogs%3Acore/_latestVersion)
-
-```implementation 'com.afollestad.material-dialogs:core:上面的版本号'```
-
-[ ![Bottom Sheets](https://api.bintray.com/packages/drummer-aidan/maven/material-dialogs%3Abottomsheets/images/download.svg) ](https://bintray.com/drummer-aidan/maven/material-dialogs%3Abottomsheets/_latestVersion)
-
-```implementation 'com.afollestad.material-dialogs:bottomsheets:上面的版本号'```
-
----
-
 ## Basics
 
 Here's a very basic example of creating and showing a dialog:
