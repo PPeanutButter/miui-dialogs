@@ -170,6 +170,7 @@ class MainActivity3 : AppCompatActivity() {
                 dialog.setActionButtonEnabled(WhichButton.POSITIVE, isValid==true)
             }
             positiveButton(text = "Accept")
+            negativeButton(text = "Cancel")
         }
     }
 }
