@@ -172,6 +172,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * Cancel the dialog.
      */
     fun cancel() = dialog?.cancel()
+    fun isShowing() = dialog?.isShowing
 
     /**
      * Gets the input EditText for the dialog.
@@ -291,20 +292,23 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                             var i = -1
                             while (second-++i>0){
                                 Handler(context.mainLooper).post {
+                                    this@MIUIDialog.setActionButtonEnabled(WhichButton.NEGATIVE,false)
                                     it.text = String.format("%s(%d)",userText,second-i)
                                 }
                                 sleep(1000)
                             }
                             Handler(context.mainLooper).post {
                                 it.text = userText
-                                it.performClick()
+                                this@MIUIDialog.setActionButtonEnabled(WhichButton.NEGATIVE,true)
                             }
                         }
                     }.start()
                 }
                 it.setOnClickListener {
-                    wrapper.click?.invoke(this)
-                    cancel()
+                    if(isShowing() == true){
+                        wrapper.click?.invoke(this)
+                        cancel()
+                    }
                 }
                 view.findViewById<LinearLayout>(R.id.miui_action_panel).visible()
             }
