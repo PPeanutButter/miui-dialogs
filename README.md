@@ -298,7 +298,7 @@ MIUIDialog(this).show {
 
 You can do custom validation using the input listener. This example enforces that the input starts with the letter 'a':
 
-<img src="screen/miui11-custom-validation.png" width="400px" />
+<img src="screen/miui11-custom-validation.png" align="middle" width="400px" />
 
 ```kotlin
 MIUIDialog(this).show {
