@@ -45,8 +45,24 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     private var positiveWrapper: PositiveWrapper? = null
     private var negativeWrapper: NegativeWrapper? = null
 
+    var cancelOnTouchOutside: Boolean = true
+    var cancelable: Boolean = true
+
     private var miuiView: View? = null
     private var miuiLight: Boolean = true
+
+    /**
+     * 首先初始化view
+     */
+    private fun initialize(){
+        calculateVisionLight()
+        //处理不同的MIUI版本
+        miuiView = when (miuiVersion) {
+            MIUI11 -> context.resolveLayout(miuiLight, dayLayoutRes = R.layout.miui11layout, nightLayoutRes = R.layout.miui11layout_night)
+            else -> null
+        }
+        dialog = MaterialDialog(context, BottomSheet(layoutMode = LayoutMode.WRAP_CONTENT))
+    }
 
     /**
      * Shows a title, or header, at the top of the dialog.
@@ -97,6 +113,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
 
     /** Applies multiple properties to the dialog and opens it. */
     fun show(func: MIUIDialog.() -> Unit): MIUIDialog = apply {
+        initialize()
         func()
         this.show()
     }
@@ -256,12 +273,6 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     private fun show() {
-        calculateVisionLight()
-        //处理不同的MIUI版本
-        miuiView = when (miuiVersion) {
-            MIUI11 -> context.resolveLayout(miuiLight, dayLayoutRes = R.layout.miui11layout, nightLayoutRes = R.layout.miui11layout_night)
-            else -> null
-        }
         miuiView?.let {
             populateTitle(it)
             populateMessage(it)
@@ -270,8 +281,10 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             populateNegativeButton(it)
             populateActionButton(it)
         }
-        dialog = MaterialDialog(context, BottomSheet(layoutMode = LayoutMode.WRAP_CONTENT)).show {
-            customView(view = miuiView, noVerticalPadding = true)
+        dialog?.show {
+            customView(view = miuiView, noVerticalPadding = true)//, dialogWrapContent = true)
+            cancelable(this@MIUIDialog.cancelable)
+            cancelOnTouchOutside(this@MIUIDialog.cancelOnTouchOutside)
         }
     }
 

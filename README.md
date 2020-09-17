@@ -339,7 +339,12 @@ MIUIDialog(this).show {
 
 You can prevent a dialog from being canceled, meaning it has to be explictly dismissed with an action button or a call to the method above.
 
-not support yet!
+```kotlin
+MIUIDialog(this).show {
+  cancelable = false  // calls setCancelable on the underlying dialog
+  cancelOnTouchOutside = false  // calls setCanceledOnTouchOutside on the underlying dialog
+}
+```
 
 ## Lists
 
@@ -359,7 +364,87 @@ not support yet!
 
 ## Theming
 
-not support yet!
+Google's newer mindset with Material Theming (vs the 2014 mindset) is flexible. If you take their 
+["Crane example"](https://material.io/design/components/dialogs.html#theming), you see that they 
+change fonts, corner rounding, etc. 
 
+### Light and Dark
 
+Light and dark theming is automatic based on your app's theme (basically whether `android:textColorPrimary` 
+is more light or more dark):
+
+<img src="https://raw.githubusercontent.com/afollestad/material-dialogs/main/art/lightanddarkthemes.png" width="500px" />
+
+### Background Color
+
+Material Dialogs uses the value of the `colorBackgroundFloating` attribute in your Activity theme 
+for the background color of dialogs. You can also use the `md_background_color` attribute in your 
+theme, which will take precedence.
+
+### Ripple Color
+
+Material Dialogs uses the value of the `?android:colorControlHighlight` attribute in your Activity 
+theme for the ripple color of list items, buttons, etc. by default. You can override this with the 
+`md_ripple_color` theme attribute as well.
+
+### Corner Radius
+
+Corner radius is the rounding of dialog corners:
+
+<img src="https://raw.githubusercontent.com/afollestad/material-dialogs/main/art/customtheme.png" width="250px" />
+
+it can be changed with an attribute in your app theme. It defaults to 4dp:
+
+```xml
+<style name="AppTheme.Custom" parent="Theme.AppCompat">
+
+  <item name="md_corner_radius">16dp</item>
+    
+</style>
+```
+
+There is also a programmatic setter for this value:
+
+```kotlin
+MaterialDialog(this).show {
+  // literal, internally converts to dp so 16dp
+  cornerRadius(16f)
+  // Using a dimen instead is encouraged as it's easier to have all instances changeable from one place
+  cornerRadius(res = R.dimen.my_corner_radius)// (not support yet)
+}
+```
+
+### Text Color (not support yet)
+
+By default, `android:textColorPrimary` and `android:textColorSecondary` attributes from your Activity
+theme are used for the title and content colors of dialogs. `colorPrimary` is used for the default 
+text color of action buttons. If you wish to override these, there are attributes provided:
+
+```xml
+<style name="AppTheme.Custom" parent="Theme.AppCompat">
+
+  <item name="md_color_title">@color/your_color</item>
+  <item name="md_color_content">@color/your_color</item>
+  <item name="md_color_button_text">@color/your/color</item>
+    
+</style>
+```
+
+### Fonts (not support yet)
+
+This library supports using custom fonts, powered by the Support libraries `ResourcesCompat` class. 
+With raw font files or XML font files in your `/res/font` folder, you can use them in Material Dialogs 
+using attributes in your app's theme.
+
+```xml
+<style name="AppTheme.Custom" parent="Theme.AppCompat">
+
+  <item name="md_font_title">@font/your_font</item>
+  <item name="md_font_body">@font/your_font</item>
+  <item name="md_font_button">@font/your_font</item>
+    
+</style>
+```
+
+See the "Custom Theme" example in the sample project (open the overflow menu for the theme switcher).
 

@@ -58,6 +58,7 @@ class MainActivity3 : AppCompatActivity() {
             input()
             title()
             cancel()
+            cancelable(true)
             getInputField()
         }
 
@@ -66,6 +67,7 @@ class MainActivity3 : AppCompatActivity() {
             dismiss()
             inputField
             messageTextView
+            cancelable = false
             onCancel {  }
             onDismiss {  }
             onShow {  }
@@ -93,9 +95,9 @@ class MainActivity3 : AppCompatActivity() {
             positiveButton(text = "Agree"){
                 "you clicked positive button!".toast(this@MainActivity3)
             }
-//            negativeButton(text = "Disagree"){
-//                "you clicked negative button!".toast(this@MainActivity3)
-//            }
+            negativeButton(text = "Disagree"){
+                "you clicked negative button!".toast(this@MainActivity3)
+            }
         }
     }
 
