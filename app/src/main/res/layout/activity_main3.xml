@@ -92,5 +92,12 @@
             android:layout_height="wrap_content"
             android:onClick="custom_validation"
             android:text="Custom Validation" />
+
+        <Button
+            android:id="@+id/button12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="icon"
+            android:text="icon" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -57,6 +57,7 @@ class MainActivity3 : AppCompatActivity() {
             positiveButton()
             input()
             title()
+            icon()
             cancel()
             cancelable(true)
             getInputField()
@@ -190,6 +191,16 @@ class MainActivity3 : AppCompatActivity() {
                 dialog.setInputError(text = if (isValid == true || charSequence.isNullOrEmpty()) null else "Must start with an 'a'!")
                 dialog.setActionButtonEnabled(WhichButton.POSITIVE, isValid==true)
             }
+            positiveButton(text = "Accept")
+            negativeButton(text = "Cancel")
+        }
+    }
+
+    fun icon(view: View) {
+        MIUIDialog(this).show {
+            title(text = "显示标题图标")
+            icon(R.mipmap.ic_launcher_round)
+            message(text = "显示内容文字")
             positiveButton(text = "Accept")
             negativeButton(text = "Cancel")
         }

@@ -2,13 +2,12 @@ package com.peanut.sdk.miuidialog
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.text.InputType
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.afollestad.materialdialogs.LayoutMode
 import com.afollestad.materialdialogs.MaterialDialog
@@ -39,6 +38,7 @@ typealias MIUICallback = (MIUIDialog) -> Unit
 class MIUIDialog(private val context: Context, private val miuiVersion: Int = MIUI11) {
     private var dialog: MaterialDialog? = null
 
+    private var iconWrapper: IconWrapper? = null
     private var titleWrapper: TitleWrapper? = null
     private var inputWrapper: InputWrapper? = null
     private var messageWrapper: MessageWrapper? = null
@@ -59,9 +59,20 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         //处理不同的MIUI版本
         miuiView = when (miuiVersion) {
             MIUI11 -> context.resolveLayout(miuiLight, dayLayoutRes = R.layout.miui11layout, nightLayoutRes = R.layout.miui11layout_night)
-            else -> null
+            else -> throw IllegalStateException("Only MIUI-11 supported yet!")
         }
         dialog = MaterialDialog(context, BottomSheet(layoutMode = LayoutMode.WRAP_CONTENT))
+    }
+
+    /**
+     * Shows an drawable to the left of the dialog title.
+     *
+     * @param res The drawable resource to display as the drawable.
+     * @param drawable The drawable to display as the drawable.
+     */
+    fun icon(@DrawableRes res: Int? = null, drawable: Drawable? = null): MIUIDialog = apply {
+        MDUtil.assertOneSet("icon", drawable, res)
+        this.iconWrapper = IconWrapper(res, drawable)
     }
 
     /**
@@ -230,12 +241,15 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     /**
      * Gets the input EditText for the dialog.
      */
-    var inputField = miuiView?.findViewById<EditText>(R.id.miui_input)
+    val inputField:EditText?
+        get() = miuiView?.findViewById(R.id.miui_input)
 
     /**
      * Gets the message TextView for the dialog.
      */
-    var messageTextView = miuiView?.findViewById<TextView>(R.id.miui_message)
+    val messageTextView :TextView?
+            get() = miuiView?.findViewById(R.id.miui_message)
+
     /**
      * 设置输入框的错误状态下的提示
      * 还需要改变输入框的背景
@@ -274,6 +288,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
 
     private fun show() {
         miuiView?.let {
+            populateIcon(it)
             populateTitle(it)
             populateMessage(it)
             populateInput(it)
@@ -292,6 +307,21 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         if (positiveWrapper == null && negativeWrapper == null)
             it.findViewById<LinearLayout>(R.id.miui_action_panel).gone()
         else it.findViewById<LinearLayout>(R.id.miui_action_panel).visible()
+    }
+
+    private fun populateIcon(view: View) {
+        view.findViewById<ImageView>(R.id.miui_icon).let {
+            it.gone()
+            iconWrapper?.let { wrapper ->
+                wrapper.res?.let {res->
+                    it.setImageResource(res)
+                }
+                wrapper.drawable?.let {drawable->
+                    it.setImageDrawable(drawable)
+                }
+                it.visible()
+            }
+        }
     }
 
     private fun populateTitle(view: View) {
@@ -345,8 +375,9 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                 }
                 it.setOnClickListener {
                     wrapper.click?.invoke(this)
-                    if (inputWrapper?.waitForPositiveButton == true)
+                    if (inputWrapper?.waitForPositiveButton == true){
                         inputWrapper?.callback?.invoke(this.inputField?.text, this)
+                    }
                     cancel()
                 }
             }

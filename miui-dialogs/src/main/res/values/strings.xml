@@ -6,4 +6,5 @@
     <string name="design_positive_button">accept</string>
     <string name="design_hint">Typing something !</string>
     <string name="design_input_err">TextView</string>
+    <string name="todo">TODO</string>
 </resources>

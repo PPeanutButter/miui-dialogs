@@ -8,15 +8,15 @@ def siteUrl = 'https://github.com/PPeanutButter/miui-dialogs'
 def gitUrl = 'https://github.com/PPeanutButter/miui-dialogs.git'
 def libName = "miui-dialogs"
 group = "com.peanut.sdk"
-version = "alpha-0.1.6"
+version = "0.1.8"
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
