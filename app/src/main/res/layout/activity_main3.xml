@@ -1,103 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity3">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView2"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="MIUI-11系列" />
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="miui11Basic"
-            android:text="Basic（最基本弹框）" />
+            <Button
+                android:id="@+id/b_basic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="Basic（最基本弹框）" />
 
-        <Button
-            android:id="@+id/button7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="miui11ActionButton"
-            android:text="Action button（带按钮）" />
+            <Button
+                android:id="@+id/b_action"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="Action button（带按钮）" />
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="miui11PositiveCountdown"
-            android:text="Action button (确认倒计时)" />
+            <Button
+                android:id="@+id/b_callback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="Callbacks（带回调）" />
 
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="miui11NegativeCountdown"
-            android:text="Action button (取消倒计时)" />
+            <Button
+                android:id="@+id/b_action_countdown_p"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="Action button (确认倒计时)" />
 
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="miui11Callbacks"
-            android:text="Callbacks（带回调）" />
+            <Button
+                android:id="@+id/b_action_countdown_n"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="Action button (取消倒计时)" />
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="miui11Html"
-            android:text="Html（显示HTML）" />
+            <Button
+                android:id="@+id/b_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="icon" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="miui11HtmlCallback"
-            android:text="Html（重写HTML链接跳转）" />
+            <Button
+                android:id="@+id/b_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="imageview" />
 
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="miui11input"
-            android:text="input（输入框、实时回调）" />
+            <Button
+                android:id="@+id/b_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="linespace（消息间距）" />
 
-        <Button
-            android:id="@+id/button10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="miui11InputWait"
-            android:text="input（等待按钮回调）" />
+            <Button
+                android:id="@+id/b_html"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="Html（显示HTML）" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="miui11InputWaitMultilines"
-            android:text="input（多行）" />
+            <Button
+                android:id="@+id/b_html_callback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="Html（重写HTML链接跳转）" />
 
-        <Button
-            android:id="@+id/button11"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="custom_validation"
-            android:text="Custom Validation" />
+            <Button
+                android:id="@+id/b_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="input（输入框、实时回调）" />
 
-        <Button
-            android:id="@+id/button12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="icon"
-            android:text="icon" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/b_input_wait"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="input（等待按钮回调）" />
+
+            <Button
+                android:id="@+id/b_input_muti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="input（多行）" />
+
+            <Button
+                android:id="@+id/b_input_valid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="Custom Validation" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.afollestad.materialdialogs.LayoutMode
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.WhichButton
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.callbacks.onCancel
 import com.afollestad.materialdialogs.callbacks.onDismiss
@@ -42,6 +41,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     private var titleWrapper: TitleWrapper? = null
     private var inputWrapper: InputWrapper? = null
     private var messageWrapper: MessageWrapper? = null
+    private var messageIconWrapper: MessageIconWrapper? = null
     private var positiveWrapper: PositiveWrapper? = null
     private var negativeWrapper: NegativeWrapper? = null
 
@@ -65,7 +65,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     /**
-     * Shows an drawable to the left of the dialog title.
+     * Shows an drawable to the top of the dialog title.
      *
      * @param res The drawable resource to display as the drawable.
      * @param drawable The drawable to display as the drawable.
@@ -97,6 +97,17 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         messageWrapper = MessageWrapper(res, text, messageSetting).apply {
             messageSetting?.invoke(this.MessageSettings())
         }
+    }
+
+    /**
+     * Shows an drawable to the bottom of the dialog message.
+     *
+     * @param res The drawable resource to display as the drawable.
+     * @param drawable The drawable to display as the drawable.
+     */
+    fun messageImg(@DrawableRes res: Int? = null, drawable: Drawable? = null): MIUIDialog = apply {
+        MDUtil.assertOneSet("messageIcon", drawable, res)
+        this.messageIconWrapper = MessageIconWrapper(res, drawable)
     }
 
     /**
@@ -133,7 +144,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * Adds a listener that's invoked when the dialog is [MaterialDialog.dismiss]'d. If this is called
      * multiple times, it appends additional callbacks, rather than overwriting.
      */
-    fun onDismiss(MIUICallback: MIUICallback): MIUIDialog = apply {
+    fun MIUIDialog.onDismiss(MIUICallback: MIUICallback): MIUIDialog = apply {
         dialog?.onDismiss {
             MIUICallback.invoke(this)
         }
@@ -145,7 +156,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      *
      * If the dialog is already showing, the callback be will be invoked immediately.
      */
-    fun onShow(MIUICallback: MIUICallback): MIUIDialog = apply {
+    fun MIUIDialog.onShow(MIUICallback: MIUICallback): MIUIDialog = apply {
         dialog?.onShow {
             MIUICallback.invoke(this)
         }
@@ -155,7 +166,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * Adds a listener that's invoked right before the dialog is [MaterialDialog.show]'n. If this is called
      * multiple times, it appends additional callbacks, rather than overwriting.
      */
-    fun onPreShow(MIUICallback: MIUICallback): MIUIDialog = apply {
+    fun MIUIDialog.onPreShow(MIUICallback: MIUICallback): MIUIDialog = apply {
         dialog?.onPreShow {
             MIUICallback.invoke(this)
         }
@@ -165,7 +176,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * Adds a listener that's invoked when the dialog is canceled. If this is called
      * multiple times, it overwriting.
      */
-    fun onCancel(MIUICallback: MIUICallback): MIUIDialog = apply {
+    fun MIUIDialog.onCancel(MIUICallback: MIUICallback): MIUIDialog = apply {
         dialog?.onCancel {
             MIUICallback.invoke(this)
         }
@@ -189,7 +200,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      *    the input field is not empty.
      * @param callback A listener to invoke for input text notifications.
      */
-    fun input(
+    fun MIUIDialog.input(
             hint: String? = null,
             @StringRes hintRes: Int? = null,
             prefill: CharSequence? = null,
@@ -241,14 +252,18 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     /**
      * Gets the input EditText for the dialog.
      */
-    val inputField:EditText?
+    private val inputField:EditText?
         get() = miuiView?.findViewById(R.id.miui_input)
+
+    /**
+     * Gets the input EditText for the dialog.
+     */
+    fun MIUIDialog.getInputField():EditText? = miuiView?.findViewById(R.id.miui_input)
 
     /**
      * Gets the message TextView for the dialog.
      */
-    val messageTextView :TextView?
-            get() = miuiView?.findViewById(R.id.miui_message)
+    fun MIUIDialog.getMessageTextView():TextView? = miuiView?.findViewById(R.id.miui_message)
 
     /**
      * 设置输入框的错误状态下的提示
@@ -291,13 +306,14 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             populateIcon(it)
             populateTitle(it)
             populateMessage(it)
+            populateMessageIcon(it)
             populateInput(it)
             populatePositiveButton(it)
             populateNegativeButton(it)
             populateActionButton(it)
         }
         dialog?.show {
-            customView(view = miuiView, noVerticalPadding = true)//, dialogWrapContent = true)
+            customView(view = miuiView, noVerticalPadding = true, scrollable = true)
             cancelable(this@MIUIDialog.cancelable)
             cancelOnTouchOutside(this@MIUIDialog.cancelOnTouchOutside)
         }
@@ -338,6 +354,21 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         view.findViewById<TextView>(R.id.miui_message).let {
             it.gone()
             messageWrapper?.populate(it,context)
+        }
+    }
+
+    private fun populateMessageIcon(view: View) {
+        view.findViewById<ImageView>(R.id.miui_message_img).let {
+            it.gone()
+            messageIconWrapper?.let { wrapper ->
+                wrapper.res?.let {res->
+                    it.setImageResource(res)
+                }
+                wrapper.drawable?.let {drawable->
+                    it.setImageDrawable(drawable)
+                }
+                it.visible()
+            }
         }
     }
 
