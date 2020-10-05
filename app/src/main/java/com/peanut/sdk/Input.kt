@@ -1,9 +1,9 @@
 package com.peanut.sdk
 
 import android.content.Context
-import com.afollestad.materialdialogs.WhichButton
 import com.peanut.sdk.miuidialog.AddInFunction.toast
 import com.peanut.sdk.miuidialog.MIUIDialog
+import com.peanut.sdk.miuidialog.WhichButton
 
 fun miui11input(context: Context){
     MIUIDialog(context = context).show {

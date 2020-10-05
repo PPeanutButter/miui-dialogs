@@ -116,6 +116,13 @@
                 android:onClick="onButtonClick"
                 android:text="Custom Validation" />
 
+            <Button
+                android:id="@+id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onButtonClick"
+                android:text="progress" />
+
         </LinearLayout>
     </ScrollView>
 

@@ -6,10 +6,10 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
-import com.afollestad.materialdialogs.WhichButton
 import com.peanut.sdk.miuidialog.AddInFunction.resolveText
 import com.peanut.sdk.miuidialog.AddInFunction.visible
 import com.peanut.sdk.miuidialog.MIUIDialog
+import com.peanut.sdk.miuidialog.WhichButton
 
 typealias InputCallback = (charSequence:CharSequence?, dialog:MIUIDialog) -> Unit
 

@@ -9,6 +9,7 @@ import com.afollestad.materialdialogs.input.input
 import com.peanut.sdk.miuidialog.MIUIDialog
 import com.peanut.sdk.miuidialog.WhichButton
 import kotlinx.android.synthetic.main.activity_main3.*
+import kotlinx.android.synthetic.main.activity_main3.progress
 
 class MainActivity3 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +33,7 @@ class MainActivity3 : AppCompatActivity() {
             b_input_wait -> ::miui11InputWait
             b_input_muti -> ::miui11InputWaitMultilines
             b_input_valid -> ::customValidation
+            progress -> ::basicProgress
             else -> null
         })
     }

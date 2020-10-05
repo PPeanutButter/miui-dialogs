@@ -5,10 +5,15 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.text.InputType
+import android.util.Log
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.LinearInterpolator
+import android.view.animation.RotateAnimation
 import android.widget.*
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.afollestad.materialdialogs.LayoutMode
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
@@ -27,6 +32,7 @@ import com.peanut.sdk.miuidialog.AddInFunction.visible
 import com.peanut.sdk.miuidialog.MIUIVersion.MIUI11
 import com.peanut.sdk.miuidialog.content_wrapper.*
 
+
 typealias MIUICallback = (MIUIDialog) -> Unit
 
 /**
@@ -44,6 +50,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     private var messageIconWrapper: MessageIconWrapper? = null
     private var positiveWrapper: PositiveWrapper? = null
     private var negativeWrapper: NegativeWrapper? = null
+    private var progressWrapper: ProgressWrapper? = null
 
     var cancelOnTouchOutside: Boolean = true
     var cancelable: Boolean = true
@@ -117,7 +124,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * @param text The literal string to display on the button.
      * @param click A listener to invoke when the button is pressed.
      */
-    fun positiveButton(@StringRes res: Int? = null, text: CharSequence? = null,countdown:Int? = null, click: PositiveCallback? = null): MIUIDialog = apply {
+    fun positiveButton(@StringRes res: Int? = null, text: CharSequence? = null, countdown: Int? = null, click: PositiveCallback? = null): MIUIDialog = apply {
         this.positiveWrapper = PositiveWrapper(res, text, countdown, click)
     }
 
@@ -129,7 +136,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * @param text The literal string to display on the button.
      * @param click A listener to invoke when the button is pressed.
      */
-    fun negativeButton(@StringRes res: Int? = null, text: CharSequence? = null, countdown:Int? = null, click: NegativeCallback? = null): MIUIDialog = apply {
+    fun negativeButton(@StringRes res: Int? = null, text: CharSequence? = null, countdown: Int? = null, click: NegativeCallback? = null): MIUIDialog = apply {
         this.negativeWrapper = NegativeWrapper(res, text, countdown, click)
     }
 
@@ -240,6 +247,22 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     /**
+     * show a progress
+     */
+    fun MIUIDialog.progress(@StringRes res: Int? = null, text: CharSequence? = null): MIUIDialog = apply {
+        this.progressWrapper = ProgressWrapper(res, text)
+        cancelOnTouchOutside = false
+        cancelable = false
+    }
+
+    /**
+     * re-set progress text
+     */
+    fun setProgressText(text: String){
+        miuiView?.findViewById<TextView>(R.id.progress_text)?.text = text
+    }
+
+    /**
      * Cancel the dialog.
      */
     fun cancel() = dialog?.cancel()
@@ -311,6 +334,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             populatePositiveButton(it)
             populateNegativeButton(it)
             populateActionButton(it)
+            populateProgress(it)
         }
         dialog?.show {
             customView(view = miuiView, noVerticalPadding = true, scrollable = true)
@@ -329,10 +353,10 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         view.findViewById<ImageView>(R.id.miui_icon).let {
             it.gone()
             iconWrapper?.let { wrapper ->
-                wrapper.res?.let {res->
+                wrapper.res?.let { res->
                     it.setImageResource(res)
                 }
-                wrapper.drawable?.let {drawable->
+                wrapper.drawable?.let { drawable->
                     it.setImageDrawable(drawable)
                 }
                 it.visible()
@@ -353,7 +377,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     private fun populateMessage(view: View) {
         view.findViewById<TextView>(R.id.miui_message).let {
             it.gone()
-            messageWrapper?.populate(it,context)
+            messageWrapper?.populate(it, context)
         }
     }
 
@@ -361,10 +385,10 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         view.findViewById<ImageView>(R.id.miui_message_img).let {
             it.gone()
             messageIconWrapper?.let { wrapper ->
-                wrapper.res?.let {res->
+                wrapper.res?.let { res->
                     it.setImageResource(res)
                 }
-                wrapper.drawable?.let {drawable->
+                wrapper.drawable?.let { drawable->
                     it.setImageDrawable(drawable)
                 }
                 it.visible()
@@ -375,7 +399,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     private fun populateInput(view: View) {
         view.findViewById<EditText>(R.id.miui_input).let {
             it.gone()
-            inputWrapper?.populate(it,context,this)
+            inputWrapper?.populate(it, context, this)
         }
     }
 
@@ -392,14 +416,14 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                             var i = -1
                             while (second-++i>0){
                                 Handler(context.mainLooper).post {
-                                    this@MIUIDialog.setActionButtonEnabled(WhichButton.POSITIVE,false)
-                                    it.text = String.format("%s(%d)",userText,second-i)
+                                    this@MIUIDialog.setActionButtonEnabled(WhichButton.POSITIVE, false)
+                                    it.text = String.format("%s(%d)", userText, second - i)
                                 }
                                 sleep(1000)
                             }
                             Handler(context.mainLooper).post {
                                 it.text = userText
-                                this@MIUIDialog.setActionButtonEnabled(WhichButton.POSITIVE,true)
+                                this@MIUIDialog.setActionButtonEnabled(WhichButton.POSITIVE, true)
                             }
                         }
                     }.start()
@@ -444,6 +468,27 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                     wrapper.click?.invoke(this)
                     cancel()
                 }
+            }
+        }
+    }
+
+    private fun populateProgress(view: View) {
+        view.findViewById<ConstraintLayout>(R.id.progress).let {
+            it.gone()
+            progressWrapper?.let { wrapper ->
+                it.findViewById<TextView>(R.id.progress_text).text = context.resolveText(res = wrapper.res, text = wrapper.text)
+                //rotate icon
+                val icon = it.findViewById<ImageView>(R.id.progress_icon)
+                icon.post {
+                    Log.v("weight",(icon.width/2).toString())
+                    Log.v("weight1",(icon.height/2).toString())
+                    val rotateAnimation: Animation = RotateAnimation(0f, 360f, (icon.width/2).toFloat(), (icon.height/2).toFloat())
+                    rotateAnimation.duration = 600
+                    rotateAnimation.repeatCount = -1
+                    rotateAnimation.interpolator = LinearInterpolator()
+                    icon.startAnimation(rotateAnimation)
+                }
+                it.visible()
             }
         }
     }

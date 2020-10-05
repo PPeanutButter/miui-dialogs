@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="23dp">
+    android:paddingBottom="25dp">
 
     <ImageView
         android:id="@+id/miui_icon"
@@ -126,9 +126,9 @@
             android:layout_weight="1"
             android:background="@drawable/botton_background"
             android:text="@string/design_negative_button"
+            android:textAllCaps="false"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:textAllCaps="false"
             android:theme="@style/miui_dialog_theme" />
 
         <Button
@@ -139,10 +139,66 @@
             android:layout_weight="1"
             android:background="@drawable/botton_background"
             android:text="@string/design_positive_button"
+            android:textAllCaps="false"
             android:textColor="#0b94f2"
             android:textSize="16sp"
-            android:textAllCaps="false"
             android:theme="@style/miui_dialog_theme" />
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/miui_action_panel">
+
+        <ImageView
+            android:id="@+id/progress_icon"
+            android:layout_width="21dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/loading" />
+
+        <TextView
+            android:id="@+id/progress_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="TextView"
+            android:textColor="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/progress_icon"
+            app:layout_constraintTop_toTopOf="@+id/progress_icon" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/progress_icon"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
