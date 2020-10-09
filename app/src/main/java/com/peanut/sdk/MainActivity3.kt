@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.input.input
+import com.afollestad.materialdialogs.customview.customView
 import com.peanut.sdk.miuidialog.MIUIDialog
 import com.peanut.sdk.miuidialog.WhichButton
 import kotlinx.android.synthetic.main.activity_main3.*
-import kotlinx.android.synthetic.main.activity_main3.progress
+import kotlinx.android.synthetic.main.activity_main3.b_progress
 
 class MainActivity3 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,8 @@ class MainActivity3 : AppCompatActivity() {
             b_input_wait -> ::miui11InputWait
             b_input_muti -> ::miui11InputWaitMultilines
             b_input_valid -> ::customValidation
-            progress -> ::basicProgress
+            b_progress -> ::basicProgress
+            b_custom_view -> ::customView
             else -> null
         })
     }
@@ -44,17 +45,7 @@ class MainActivity3 : AppCompatActivity() {
 
     fun test() {
         MaterialDialog(this).show {
-            message() {
-                html() { }
-//                lineSpacing()
-            }
-//            setActionButtonEnabled()
-            positiveButton()
-            input()
-            title()
-            icon()
-            cancel()
-            cancelable(true)
+            customView()
         }
 
         MIUIDialog(this).show {

@@ -26,7 +26,7 @@ object AddInFunction {
         }
     }
 
-    private fun Int.createView(context: Context) =
+    fun Int.createView(context: Context): View =
             LayoutInflater.from(context).inflate(this, null)
 
     fun Int.createDrawable(context: Context) = ResourcesCompat.getDrawable(context.resources,this,null)

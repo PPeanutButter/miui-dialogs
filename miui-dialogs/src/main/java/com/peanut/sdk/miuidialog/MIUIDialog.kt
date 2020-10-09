@@ -12,8 +12,10 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.RotateAnimation
 import android.widget.*
 import androidx.annotation.DrawableRes
+import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.get
 import com.afollestad.materialdialogs.LayoutMode
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
@@ -25,6 +27,7 @@ import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.utils.MDUtil
 import com.afollestad.materialdialogs.utils.MDUtil.resolveColor
 import com.peanut.sdk.miuidialog.AddInFunction.createDrawable
+import com.peanut.sdk.miuidialog.AddInFunction.createView
 import com.peanut.sdk.miuidialog.AddInFunction.gone
 import com.peanut.sdk.miuidialog.AddInFunction.resolveLayout
 import com.peanut.sdk.miuidialog.AddInFunction.resolveText
@@ -51,6 +54,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     private var positiveWrapper: PositiveWrapper? = null
     private var negativeWrapper: NegativeWrapper? = null
     private var progressWrapper: ProgressWrapper? = null
+    private var customViewWrapper: CustomViewWrapper? = null
 
     var cancelOnTouchOutside: Boolean = true
     var cancelable: Boolean = true
@@ -115,6 +119,26 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     fun messageImg(@DrawableRes res: Int? = null, drawable: Drawable? = null): MIUIDialog = apply {
         MDUtil.assertOneSet("messageIcon", drawable, res)
         this.messageIconWrapper = MessageIconWrapper(res, drawable)
+    }
+
+    /**
+     * Sets a custom view to display in the dialog, below the title and above the action buttons
+     * (and checkbox prompt).
+     *
+     * @param viewRes The layout resource to inflate as the custom view.
+     * @param view The view to insert as the custom view.
+//     * @param scrollable Whether or not the custom view is automatically wrapped in a ScrollView.
+//     * @param noVerticalPadding When set to true, vertical padding is not added around your content.
+//     * @param horizontalPadding When true, 24dp horizontal padding is applied to your custom view.
+//     * @param dialogWrapContent When true, the dialog will wrap the content width.
+     */
+    fun customView(
+            @LayoutRes viewRes: Int? = null,
+            view: View? = null,
+            func: viewHandle? = null
+    ): MIUIDialog = apply {
+        MDUtil.assertOneSet("customView", view, viewRes)
+        this.customViewWrapper = CustomViewWrapper(viewRes, view,func = func)
     }
 
     /**
@@ -240,9 +264,6 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                     it.setTextColor(if (enabled) ThemedColor.mainColor(miuiLight) else Color.GRAY)
                 }
             }
-            else -> {
-                //miui不支持显示中立按钮
-            }
         }
     }
 
@@ -335,11 +356,24 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             populateNegativeButton(it)
             populateActionButton(it)
             populateProgress(it)
+            populateCustomView(it)
         }
         dialog?.show {
             customView(view = miuiView, noVerticalPadding = true, scrollable = true)
             cancelable(this@MIUIDialog.cancelable)
             cancelOnTouchOutside(this@MIUIDialog.cancelOnTouchOutside)
+        }
+    }
+
+    private fun populateCustomView(view: View) {
+        view.findViewById<LinearLayout>(R.id.miui_custom_view).let {
+            it.gone()
+            customViewWrapper?.let { wrapper ->
+                val v = wrapper.view ?: wrapper.viewRes!!.createView(context)
+                it.addView(v,0)
+                it.visible()
+                wrapper.func?.invoke(v)
+            }
         }
     }
 
@@ -473,7 +507,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     private fun populateProgress(view: View) {
-        view.findViewById<ConstraintLayout>(R.id.progress).let {
+        view.findViewById<ConstraintLayout>(R.id.miui_progress).let {
             it.gone()
             progressWrapper?.let { wrapper ->
                 it.findViewById<TextView>(R.id.progress_text).text = context.resolveText(res = wrapper.res, text = wrapper.text)

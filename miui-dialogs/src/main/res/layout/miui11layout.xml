@@ -146,7 +146,7 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/progress"
+        android:id="@+id/miui_progress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
@@ -200,5 +200,19 @@
             app:layout_constraintStart_toEndOf="@+id/progress_icon"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/miui_custom_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/miui_progress"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
