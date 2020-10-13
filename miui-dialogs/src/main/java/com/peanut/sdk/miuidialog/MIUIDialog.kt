@@ -19,6 +19,7 @@ import androidx.core.view.get
 import com.afollestad.materialdialogs.LayoutMode
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
+import com.afollestad.materialdialogs.bottomsheets.setPeekHeight
 import com.afollestad.materialdialogs.callbacks.onCancel
 import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.afollestad.materialdialogs.callbacks.onPreShow
@@ -362,6 +363,9 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             customView(view = miuiView, noVerticalPadding = true, scrollable = true)
             cancelable(this@MIUIDialog.cancelable)
             cancelOnTouchOutside(this@MIUIDialog.cancelOnTouchOutside)
+            miuiView?.post {
+                setPeekHeight(miuiView?.height)
+            }
         }
     }
 
