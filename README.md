@@ -24,9 +24,10 @@
 9. [Dismissing](#Dismissing)
     
 ## Gradle Dependency
-[![dialog-version](https://api.bintray.com/packages/ppeanutbutter/maven/miui-dialogs/images/download.svg) ](https://bintray.com/ppeanutbutter/maven/miui-dialogs/_latestVersion)
 
-```implementation 'com.peanut.sdk:miui-dialogs:dialog-version'```
+~~implementation 'com.peanut.sdk:miui-dialogs:dialog-version'~~
+
+download from release
 
 ## Basics
 
