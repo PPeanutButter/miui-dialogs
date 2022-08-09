@@ -1,6 +1,6 @@
 # MIUI-like Dialog
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/17167bea01b548a6bc19d401697a7a69)](https://app.codacy.com/manual/PPeanutButter/miui-dialogs?utm_source=github.com&utm_medium=referral&utm_content=PPeanutButter/miui-dialogs&utm_campaign=Badge_Grade_Dashboard)  [![](https://img.shields.io/badge/镜像站-Fastgit-1bcc1b)](https://hub.fastgit.org/PPeanutButter/miui-dialogs)  ![jitpack](https://jitpack.io/v/PPeanutButter/miui-dialogs.svg)  ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ppeanutbutter/miui-dialogs?color=1bcc1b)  ![GitHub top language](https://img.shields.io/github/languages/top/ppeanutbutter/miui-dialogs?color=1bcc1b&label=Kotlin)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ppeanutbutter/miui-dialogs?color=1bcc1b)  ![GitHub top language](https://img.shields.io/github/languages/top/ppeanutbutter/miui-dialogs?color=1bcc1b&label=Kotlin)
 
 > based on [material-dialogs](https://github.com/afollestad/material-dialogs)
 
@@ -24,8 +24,20 @@
 9. [Dismissing](#Dismissing)
     
 ## Gradle Dependency
-
-`implementation 'com.github.PPeanutButter:miui-dialogs:'` [![](https://jitpack.io/v/PPeanutButter/miui-dialogs.svg)](https://jitpack.io/#PPeanutButter/miui-dialogs)
+Add it in your root build.gradle at the end of repositories:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+*Step 2.* Add the dependency
+![jitpack](https://jitpack.io/v/PPeanutButter/miui-dialogs.svg)
+```
+implementation 'com.github.PPeanutButter:miui-dialogs:@jitpack_version'
+```
 
 ## Basics
 
