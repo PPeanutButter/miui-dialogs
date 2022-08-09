@@ -25,9 +25,7 @@
     
 ## Gradle Dependency
 
-~~implementation 'com.peanut.sdk:miui-dialogs:dialog-version'~~
-
-download from release
+`implementation 'com.github.PPeanutButter:miui-dialogs:'` [![](https://jitpack.io/v/PPeanutButter/miui-dialogs.svg)](https://jitpack.io/#PPeanutButter/miui-dialogs)
 
 ## Basics
 
