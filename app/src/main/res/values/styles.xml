@@ -7,7 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="md_corner_radius">20dp</item>
-<!--        <item name="md_background_color">#222224</item>-->
+        <item name="md_background_color">#222224</item>
     </style>
 
 </resources>
