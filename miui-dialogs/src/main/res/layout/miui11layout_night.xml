@@ -59,6 +59,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/miui_message" />
 
+    <LinearLayout
+        android:id="@+id/miui_custom_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/miui_message_img"></LinearLayout>
+
     <EditText
         android:id="@+id/miui_input"
         android:layout_width="0dp"
@@ -86,8 +100,9 @@
         android:textSize="16sp"
         android:theme="@style/miui_dialog_theme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miui_message_img" />
+        app:layout_constraintTop_toBottomOf="@+id/miui_custom_view" />
 
     <TextView
         android:id="@+id/miui_input_error_msg"
@@ -202,19 +217,5 @@
             app:layout_constraintStart_toEndOf="@+id/progress_icon"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:id="@+id/miui_custom_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miui_progress"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
