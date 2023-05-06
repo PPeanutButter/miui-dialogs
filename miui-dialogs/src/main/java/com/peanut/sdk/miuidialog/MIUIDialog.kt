@@ -352,12 +352,12 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             populateTitle(it)
             populateMessage(it)
             populateMessageIcon(it)
+            populateCustomView(it)
             populateInput(it)
             populatePositiveButton(it)
             populateNegativeButton(it)
             populateActionButton(it)
             populateProgress(it)
-            populateCustomView(it)
         }
         dialog?.show {
             customView(view = miuiView, noVerticalPadding = true, scrollable = true)

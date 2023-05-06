@@ -13,5 +13,7 @@ fun customView(context: Context) {
                 "you got me!".toast(context)
             }
         }
+        positiveButton(text = "OK")
+        negativeButton(text = "Not OK")
     }
 }

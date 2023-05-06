@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.core.content.res.ResourcesCompat
+import com.afollestad.materialdialogs.utils.MDUtil.waitForHeight
 
 /**
  * 一些封装的方法
@@ -27,7 +28,11 @@ object AddInFunction {
     }
 
     fun Int.createView(context: Context): View =
-            LayoutInflater.from(context).inflate(this, null)
+            LayoutInflater.from(context).inflate(this, null).also {
+                it.waitForHeight {
+
+                }
+            }
 
     fun Int.createDrawable(context: Context) = ResourcesCompat.getDrawable(context.resources,this,null)
 
