@@ -1,87 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:paddingBottom="23dp">
-
+    android:orientation="vertical"
+    android:paddingBottom="25dp">
+    <!--标题的图标-->
     <ImageView
-        android:id="@+id/miui_icon"
-        android:layout_width="wrap_content"
+        android:id="@+id/miui_dialog_icon"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:contentDescription="@string/todo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        android:contentDescription="@string/todo" />
+    <!--标题文字-->
     <TextView
-        android:id="@+id/miui_title"
-        android:layout_width="wrap_content"
+        android:id="@+id/miui_dialog_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
+        android:gravity="center"
         android:text="@string/design_title"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miui_icon" />
-
+        android:textSize="18sp" />
+    <!--主体内容-->
     <TextView
-        android:id="@+id/miui_message"
-        android:layout_width="0dp"
+        android:id="@+id/miui_dialog_message"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginLeft="35dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="35dp"
-        android:layout_marginRight="35dp"
         android:text="@string/design_message"
         android:textColor="@android:color/darker_gray"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miui_title" />
-
+        android:textSize="16sp" />
+    <!--主体内容的可选图片-->
     <ImageView
-        android:id="@+id/miui_message_img"
-        android:layout_width="0dp"
+        android:id="@+id/miui_dialog_message_img"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
-        android:layout_marginLeft="35dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="35dp"
-        android:layout_marginRight="35dp"
         android:adjustViewBounds="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miui_message" />
-
-    <LinearLayout
-        android:id="@+id/miui_custom_view"
-        android:layout_width="0dp"
+        android:contentDescription="@string/todo" />
+    <!--自定义View-->
+    <FrameLayout
+        android:id="@+id/miui_dialog_custom_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miui_message_img"></LinearLayout>
-
+        android:layout_marginRight="30dp"/>
+    <!--文本输入框-->
     <EditText
-        android:id="@+id/miui_input"
-        android:layout_width="0dp"
+        android:id="@+id/miui_dialog_input"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
         android:autofillHints=""
         android:background="@drawable/miui_input_bg_dark"
         android:ems="10"
@@ -98,45 +79,33 @@
         android:textColorHint="@android:color/darker_gray"
         android:textCursorDrawable="@drawable/miui_input_cursor"
         android:textSize="16sp"
-        android:theme="@style/miui_dialog_theme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miui_custom_view" />
-
+        android:theme="@style/miui_dialog_theme"/>
+    <!--文本输入框的错误提示消息-->
     <TextView
-        android:id="@+id/miui_input_error_msg"
+        android:id="@+id/miui_dialog_input_error_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="2dp"
         android:text="@string/design_input_err"
         android:textColor="@android:color/holo_red_light"
         android:textSize="10sp"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/miui_input"
-        app:layout_constraintTop_toBottomOf="@+id/miui_input"
         tools:ignore="SmallSp" />
-
+    <!--两个按钮-->
     <LinearLayout
-        android:id="@+id/miui_action_panel"
-        android:layout_width="0dp"
+        android:id="@+id/miui_dialog_action_panel"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
         android:divider="@drawable/buttons_divider"
         android:orientation="horizontal"
-        android:showDividers="middle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miui_input">
+        android:showDividers="middle">
 
-        <android.widget.Button
-            android:id="@+id/miui_button_negative"
+        <Button
+            android:id="@+id/miui_dialog_button_negative"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
@@ -148,7 +117,7 @@
             android:textSize="16sp"
             android:theme="@style/miui_dialog_theme" />
 
-        <android.widget.Button
+        <Button
             android:id="@+id/miui_button_positive"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
@@ -163,32 +132,28 @@
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/miui_progress"
-        android:layout_width="0dp"
+        android:id="@+id/miui_dialog_progress"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="26dp"
-        android:layout_marginLeft="26dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="26dp"
-        android:layout_marginRight="26dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miui_action_panel">
+        android:layout_marginEnd="26dp">
 
         <ImageView
-            android:id="@+id/progress_icon"
+            android:id="@+id/miui_dialog_progress_icon"
             android:layout_width="21dp"
             android:layout_height="21dp"
             android:layout_marginStart="1dp"
             android:layout_marginLeft="1dp"
             android:layout_marginTop="4dp"
+            android:contentDescription="@string/todo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/loading" />
 
         <TextView
-            android:id="@+id/progress_text"
+            android:id="@+id/miui_dialog_progress_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -199,11 +164,11 @@
             android:textColor="@android:color/background_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/progress_icon"
-            app:layout_constraintTop_toTopOf="@+id/progress_icon" />
+            app:layout_constraintStart_toEndOf="@+id/miui_dialog_progress_icon"
+            app:layout_constraintTop_toTopOf="@+id/miui_dialog_progress_icon" />
 
         <ProgressBar
-            android:id="@+id/progress_bar"
+            android:id="@+id/miui_dialog_progress_bar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -214,8 +179,8 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/progress_icon"
+            app:layout_constraintStart_toEndOf="@+id/miui_dialog_progress_icon"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

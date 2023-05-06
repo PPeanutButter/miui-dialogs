@@ -70,7 +70,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
         calculateVisionLight()
         //处理不同的MIUI版本
         miuiView = when (miuiVersion) {
-            MIUI11 -> context.resolveLayout(miuiLight, dayLayoutRes = R.layout.miui11layout, nightLayoutRes = R.layout.miui11layout_night)
+            MIUI11 -> context.resolveLayout(miuiLight, dayLayoutRes = R.layout.miui_layout, nightLayoutRes = R.layout.miui_layout_night)
             else -> throw IllegalStateException("Only MIUI-11 supported yet!")
         }
         dialog = MaterialDialog(context, BottomSheet(layoutMode = LayoutMode.WRAP_CONTENT))
@@ -260,7 +260,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
                 }
             }
             WhichButton.NEGATIVE -> {
-                miuiView?.findViewById<Button>(R.id.miui_button_negative)?.let {
+                miuiView?.findViewById<Button>(R.id.miui_dialog_button_negative)?.let {
                     it.isEnabled = enabled
                     it.setTextColor(if (enabled) ThemedColor.mainColor(miuiLight) else Color.GRAY)
                 }
@@ -281,7 +281,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * re-set progress text
      */
     fun setProgressText(text: String){
-        miuiView?.findViewById<TextView>(R.id.progress_text)?.text = text
+        miuiView?.findViewById<TextView>(R.id.miui_dialog_progress_text)?.text = text
     }
 
     /**
@@ -298,17 +298,17 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      * Gets the input EditText for the dialog.
      */
     private val inputField:EditText?
-        get() = miuiView?.findViewById(R.id.miui_input)
+        get() = miuiView?.findViewById(R.id.miui_dialog_input)
 
     /**
      * Gets the input EditText for the dialog.
      */
-    fun MIUIDialog.getInputField():EditText? = miuiView?.findViewById(R.id.miui_input)
+    fun MIUIDialog.getInputField():EditText? = miuiView?.findViewById(R.id.miui_dialog_input)
 
     /**
      * Gets the message TextView for the dialog.
      */
-    fun MIUIDialog.getMessageTextView():TextView? = miuiView?.findViewById(R.id.miui_message)
+    fun MIUIDialog.getMessageTextView():TextView? = miuiView?.findViewById(R.id.miui_dialog_message)
 
     /**
      * 设置输入框的错误状态下的提示
@@ -316,7 +316,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
      */
     fun setInputError(text: String?) {
         miuiView?.let {
-            val a = it.findViewById<TextView>(R.id.miui_input_error_msg)
+            val a = it.findViewById<TextView>(R.id.miui_dialog_input_error_msg)
             a.gone()
             if (text.isNullOrEmpty())
                 inputField?.background =
@@ -370,7 +370,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     private fun populateCustomView(view: View) {
-        view.findViewById<LinearLayout>(R.id.miui_custom_view).let {
+        view.findViewById<FrameLayout>(R.id.miui_dialog_custom_view).let {
             it.gone()
             customViewWrapper?.let { wrapper ->
                 val v = wrapper.view ?: wrapper.viewRes!!.createView(context)
@@ -383,12 +383,12 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
 
     private fun populateActionButton(it: View) {
         if (positiveWrapper == null && negativeWrapper == null)
-            it.findViewById<LinearLayout>(R.id.miui_action_panel).gone()
-        else it.findViewById<LinearLayout>(R.id.miui_action_panel).visible()
+            it.findViewById<LinearLayout>(R.id.miui_dialog_action_panel).gone()
+        else it.findViewById<LinearLayout>(R.id.miui_dialog_action_panel).visible()
     }
 
     private fun populateIcon(view: View) {
-        view.findViewById<ImageView>(R.id.miui_icon).let {
+        view.findViewById<ImageView>(R.id.miui_dialog_icon).let {
             it.gone()
             iconWrapper?.let { wrapper ->
                 wrapper.res?.let { res->
@@ -403,7 +403,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     private fun populateTitle(view: View) {
-        view.findViewById<TextView>(R.id.miui_title).let {
+        view.findViewById<TextView>(R.id.miui_dialog_title).let {
             it.gone()
             titleWrapper?.let { wrapper ->
                 it.text = context.resolveText(res = wrapper.res, text = wrapper.text)
@@ -413,14 +413,14 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     private fun populateMessage(view: View) {
-        view.findViewById<TextView>(R.id.miui_message).let {
+        view.findViewById<TextView>(R.id.miui_dialog_message).let {
             it.gone()
             messageWrapper?.populate(it, context)
         }
     }
 
     private fun populateMessageIcon(view: View) {
-        view.findViewById<ImageView>(R.id.miui_message_img).let {
+        view.findViewById<ImageView>(R.id.miui_dialog_message_img).let {
             it.gone()
             messageIconWrapper?.let { wrapper ->
                 wrapper.res?.let { res->
@@ -435,7 +435,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     private fun populateInput(view: View) {
-        view.findViewById<EditText>(R.id.miui_input).let {
+        view.findViewById<EditText>(R.id.miui_dialog_input).let {
             it.gone()
             inputWrapper?.populate(it, context, this)
         }
@@ -478,7 +478,7 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     private fun populateNegativeButton(view: View) {
-        view.findViewById<Button>(R.id.miui_button_negative).let {
+        view.findViewById<Button>(R.id.miui_dialog_button_negative).let {
             it.gone()
             negativeWrapper?.let { wrapper ->
                 it.visible()
@@ -511,12 +511,12 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
     }
 
     private fun populateProgress(view: View) {
-        view.findViewById<ConstraintLayout>(R.id.miui_progress).let {
+        view.findViewById<ConstraintLayout>(R.id.miui_dialog_progress).let {
             it.gone()
             progressWrapper?.let { wrapper ->
-                it.findViewById<TextView>(R.id.progress_text).text = context.resolveText(res = wrapper.res, text = wrapper.text)
+                it.findViewById<TextView>(R.id.miui_dialog_progress_text).text = context.resolveText(res = wrapper.res, text = wrapper.text)
                 //rotate icon
-                val icon = it.findViewById<ImageView>(R.id.progress_icon)
+                val icon = it.findViewById<ImageView>(R.id.miui_dialog_progress_icon)
                 icon.post {
                     Log.v("weight",(icon.width/2).toString())
                     Log.v("weight1",(icon.height/2).toString())
