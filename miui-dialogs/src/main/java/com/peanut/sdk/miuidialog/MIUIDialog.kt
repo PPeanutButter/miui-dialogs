@@ -364,7 +364,9 @@ class MIUIDialog(private val context: Context, private val miuiVersion: Int = MI
             cancelable(this@MIUIDialog.cancelable)
             cancelOnTouchOutside(this@MIUIDialog.cancelOnTouchOutside)
             miuiView?.post {
-                setPeekHeight(miuiView?.height)
+                val height = miuiView?.height?:0
+                if (height <= 0) return@post
+                setPeekHeight(height)
             }
         }
     }
